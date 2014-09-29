@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
 
+migrations/
+
 settings.py
 
 __pycache__/
