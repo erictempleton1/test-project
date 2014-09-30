@@ -64,6 +64,9 @@ DATABASES = {
     }
 }
 
+SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+TEMPLATE_DIRS = ( os.path.join(SETTINGS_PATH, 'templates'), )
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
