@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from project.models import Post
 from django.core.urlresolvers import reverse
 
@@ -12,5 +12,10 @@ class PostCreate(CreateView):
 
 class PostDetail(DetailView):
 	model = Post
-	
+
+class PostUpdate(UpdateView):
+	model = Post
+
+	def get_success_url(self):
+		return reverse('project:detail', kwargs={'pk': self.object.pk,})
 
