@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from project.models import Post
 from django.core.urlresolvers import reverse
 
@@ -18,4 +18,8 @@ class PostUpdate(UpdateView):
 
 	def get_success_url(self):
 		return reverse('project:detail', kwargs={'pk': self.object.pk,})
+
+class PostDelete(DeleteView):
+    model = Post
+    success_url = '/'
 
