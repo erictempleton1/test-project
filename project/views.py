@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from project.models import Post
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 class PostListing(ListView):
@@ -16,7 +17,6 @@ class PostDetail(DetailView):
 
 class PostUpdate(UpdateView):
 	model = Post
-	field = ['title', 'author', 'content']
 	success_url = '/'
 
 class PostDelete(DeleteView):
