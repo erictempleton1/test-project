@@ -11,4 +11,7 @@ class BlogPost(models.Model):
 	def save(self):
 		self.slug = slugify(self.title)
 		super(BlogPost, self).save()
+		
+    def __unicode__(self):
+        return self.title
 	
