@@ -10,5 +10,5 @@ class BlogPost(models.Model):
 
 	def save(self):
 		self.slug = slugify(self.title)
-		super(Post, self).save()
+		super(BlogPost, self).save()
 	

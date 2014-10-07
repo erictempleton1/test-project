@@ -3,7 +3,7 @@ from project.models import BlogPost
 from project.forms import BlogForm
 
 
-class BlogPostView(FormView):
+class BlogPostView(CreateView):
 	template_name = 'project/blogpost_form.html'
 	form_class = BlogForm
 	success_url = '/'
