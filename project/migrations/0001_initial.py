@@ -8,21 +8,22 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Post'
-        db.create_table(u'project_post', (
+        # Adding model 'BlogPost'
+        db.create_table(u'project_blogpost', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('content', self.gf('django.db.models.fields.TextField')()),
+            ('submitted', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
         ))
-        db.send_create_signal(u'project', ['Post'])
+        db.send_create_signal(u'project', ['BlogPost'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Post'
-        db.delete_table(u'project_post')
+        # Deleting model 'BlogPost'
+        db.delete_table(u'project_blogpost')
 
 
     models = {
@@ -62,14 +63,15 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'project.post': {
-            'Meta': {'object_name': 'Post'},
+        u'project.blogpost': {
+            'Meta': {'object_name': 'BlogPost'},
             'author': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
+            'submitted': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True'})
         }
     }
 

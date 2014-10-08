@@ -6,8 +6,11 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
-
 class BlogPostView(CreateView):
 	template_name = 'project/blogpost_form.html'
 	form_class = BlogForm
 	success_url = '/'
+
+	def form_valid(self, form):
+		form.instance.created_by = self.request.user
+		return super(BlogPostView, self).form_valid(form)
