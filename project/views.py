@@ -13,7 +13,8 @@ class BlogPostView(CreateView):
 	success_url = '/'
 
 	def form_valid(self, form):
-		form.instance.created_by = self.request.user
+		# saves blog post to "user" foreignkey from models.py
+		form.instance.user = self.request.user
 		return super(BlogPostView, self).form_valid(form)
 
 	def form_invalid(self, form):
