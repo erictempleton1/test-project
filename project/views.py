@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView, FormView
 from project.models import BlogPost
+from django.contrib.auth.models import User
 from project.forms import BlogForm
 
 class HomePageView(ListView):
@@ -14,3 +15,6 @@ class BlogPostView(CreateView):
 	def form_valid(self, form):
 		form.instance.created_by = self.request.user
 		return super(BlogPostView, self).form_valid(form)
+
+	def form_invalid(self, form):
+		return self.render_to_response(self.get_context_data(form=form))
