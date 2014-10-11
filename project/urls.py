@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
-from project.views import BlogPostView, HomePageView
+from project.views import BlogPostCreate, HomePageView, BlogPostList
 
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
-    url(r'create/$', login_required(BlogPostView.as_view()), name='listing'),
-
+    url(r'create/$', login_required(BlogPostCreate.as_view()), name='create'),
+    url(r'posts/$', BlogPostList.as_view(), name='post_listing'),
 )
