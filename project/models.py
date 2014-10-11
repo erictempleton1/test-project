@@ -1,6 +1,4 @@
-import datetime
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
@@ -18,4 +16,3 @@ class BlogPost(models.Model):
 		
     def __unicode__(self):
         return self.title
-	
