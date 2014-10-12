@@ -22,3 +22,4 @@ class BlogPostCreate(CreateView):
 		
 class BlogPostList(DetailView):
 	model = BlogPost
+	template_name = 'project/blogpost_list.html'
