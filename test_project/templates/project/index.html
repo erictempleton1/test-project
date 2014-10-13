@@ -1,1 +1,7 @@
 <h3>Home</h3>
+
+<ul>
+    {% for post in object_list %}
+        <li>{{ post.title }}</li>
+    {% endfor %}
+</ul>
