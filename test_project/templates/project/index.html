@@ -2,6 +2,6 @@
 
 <ul>
     {% for post in object_list %}
-        <li>{{ post.title }}</li>
+        <li><a href="{% url "project:listing" post.pk post.slug %}">{{ post.title }}</a></li>
     {% endfor %}
 </ul>

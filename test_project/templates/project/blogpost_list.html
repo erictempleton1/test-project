@@ -1,5 +1,3 @@
-<ul>
-    {% for post in object_list %}
-        <li>{{ post.title }}</li>
-    {% endfor %}
-</ul>
+<h1>{{ blogpost.title }}</h1>
+<p>Author: {{ blogpost.author }} | Added: {{ blogpost.added }} | Updated: {{ blogpost.updated }}<p>
+<p>{{ blogpost.content }}</p>
