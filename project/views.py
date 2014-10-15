@@ -21,7 +21,7 @@ class BlogPostCreate(CreateView):
 	success_url = '/'
 
 	def form_valid(self, form):
-		# saves blog post to "user" foreignkey from models.py
+		""" Attributes blog post to "user" foreignkey from models. """
 		form.instance.user = self.request.user
 		return super(BlogPostCreate, self).form_valid(form)
 
@@ -34,8 +34,10 @@ class BlogPostUpdate(UpdateView):
 	form_class = BlogForm
 
 	def get_queryset(self):
-		# overrides default queryset to only allow post creator
-		# raises 404 if user is not creator
+		""" 
+		Overrides default queryset to only allow post creator
+		to update, and raises 404 error otherwise.
+		"""
 		user_set = super(BlogPostUpdate, self).get_queryset()
 		return user_set.filter(user=self.request.user)
 
