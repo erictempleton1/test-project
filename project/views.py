@@ -5,10 +5,17 @@ from django.core.urlresolvers import reverse
 from project.forms import BlogForm
 
 class HomePageView(ListView):
+	""" Lists all blog posts for every user. """
 	model = BlogPost
 	template_name = 'project/index.html'
 
+class BlogPostDetail(DetailView):
+	""" Single blog post content viewable by all users. """
+	model = BlogPost
+	template_name = 'project/blogpost_list.html'
+
 class BlogPostCreate(CreateView):
+	""" Requires login, and saves to logged in user. """
 	template_name = 'project/blogpost_form.html'
 	form_class = BlogForm
 	success_url = '/'
@@ -20,12 +27,9 @@ class BlogPostCreate(CreateView):
 
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
-		
-class BlogPostList(DetailView):
-	model = BlogPost
-	template_name = 'project/blogpost_list.html'
 
 class BlogPostUpdate(UpdateView):
+	""" Requires login, and only post author can edit. """
 	model = BlogPost
 	form_class = BlogForm
 
@@ -40,3 +44,12 @@ class BlogPostUpdate(UpdateView):
 			'id': self.object.id,
 			'slug': self.object.slug,
 			})
+
+class BlogPostDelete(DeleteView):
+	""" Requires login, and only post author can delete """
+	model = BlogPost
+	success_url = '/'
+
+	def get_queryset(self):
+		user_set = super(BlogPostDelete, self).get_queryset()
+		return user_set.filter(user=self.request.user)
