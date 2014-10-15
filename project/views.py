@@ -29,6 +29,12 @@ class BlogPostUpdate(UpdateView):
 	model = BlogPost
 	form_class = BlogForm
 
+	def get_queryset(self):
+		# overrides default queryset to only allow post creator
+		# raises 404 if user is not creator
+		user_set = super(BlogPostUpdate, self).get_queryset()
+		return user_set.filter(user=self.request.user)
+
 	def get_success_url(self):
 		return reverse('project:blog_content', kwargs={
 			'id': self.object.id,
