@@ -1,6 +1,7 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView, FormView
 from project.models import BlogPost
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from project.forms import BlogForm
 
 class HomePageView(ListView):
@@ -27,3 +28,9 @@ class BlogPostList(DetailView):
 class BlogPostUpdate(UpdateView):
 	model = BlogPost
 	form_class = BlogForm
+
+	def get_success_url(self):
+		return reverse('project:blog_content', kwargs={
+			'id': self.object.id,
+			'slug': self.object.slug,
+			})
