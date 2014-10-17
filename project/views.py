@@ -1,6 +1,7 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView, FormView
 from project.models import BlogPost
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm
 
@@ -55,3 +56,12 @@ class BlogPostDelete(DeleteView):
 	def get_queryset(self):
 		user_set = super(BlogPostDelete, self).get_queryset()
 		return user_set.filter(user=self.request.user)
+
+class UserBlogPosts(ListView):
+	model = BlogPost
+	template_name = 'project/user_page.html'
+
+	def get_queryset(self):
+		self.author = self.kwargs['author']
+		user_posts = super(UserBlogPosts, self).get_queryset()
+		return user_posts.filter(author=self.author)
