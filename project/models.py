@@ -19,3 +19,10 @@ class BlogPost(models.Model):
 		
     def __unicode__(self):
         return self.title
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User)
+    following = models.ManyToManyField('self', related_name='follows', symmetrical=False)
+
+    def __unicode__(self):
+        return self.following
