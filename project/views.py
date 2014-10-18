@@ -58,10 +58,12 @@ class BlogPostDelete(DeleteView):
 		return user_set.filter(user=self.request.user)
 
 class UserBlogPosts(ListView):
+	""" Lists posts by specific user """
 	model = BlogPost
 	template_name = 'project/user_page.html'
 
 	def get_queryset(self):
+		""" Queries based on url param """
 		self.author = self.kwargs['author']
 		user_posts = super(UserBlogPosts, self).get_queryset()
 		return user_posts.filter(author=self.author)
