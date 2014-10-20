@@ -3,6 +3,6 @@
 <ul>
     {% for post in object_list %}
         <li><h5><a href="{% url "project:blog_content" post.pk post.slug %}">{{ post.title }}</a>
-         | by: <a href="{% url "project:user_posts" post.author %}">{{ post.author }}</a></h5></li>
+         | by: {{ post.author }}</h5></li>
     {% endfor %}
 </ul>

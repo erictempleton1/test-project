@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView, FormView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from project.models import BlogPost
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -60,7 +60,7 @@ class BlogPostDelete(DeleteView):
 class UserBlogPosts(ListView):
 	""" Lists posts by specific user """
 	model = BlogPost
-	template_name = 'project/user_page.html'
+	template_name = 'project/blog_user.html'
 
 	def get_queryset(self):
 		""" Queries based on url param """
