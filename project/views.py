@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-from project.models import BlogPost, UserProfile
+from project.models import BlogPost
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm
@@ -16,8 +16,8 @@ class BlogPostDetail(DetailView):
 
 class BlogPostCreate(CreateView):
 	""" Requires login, and saves to logged in user. """
-	template_name = 'project/blogpost_form.html'
 	form_class = BlogForm
+	template_name = 'project/blogpost_form.html'
 	success_url = '/'
 
 	def form_valid(self, form):
@@ -27,17 +27,6 @@ class BlogPostCreate(CreateView):
 
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
-
-class ProfileBlog(ListView):
-	""" Lists posts by specific user """
-	model = BlogPost
-	template_name = 'project/profile_blog.html'
-
-	def get_queryset(self):
-		""" Queries based on url param """
-		self.author = self.kwargs['author']
-		profile_posts = super(ProfileBlog, self).get_queryset()
-		return profile_posts.filter(author=self.author)
 
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """
@@ -67,3 +56,13 @@ class BlogPostDelete(DeleteView):
 		user_set = super(BlogPostDelete, self).get_queryset()
 		return user_set.filter(user=self.request.user)
 
+class ProfileBlog(ListView):
+	""" Lists posts by specific user """
+	model = BlogPost
+	template_name = 'project/profile_blog.html'
+
+	def get_queryset(self):
+		""" Queries based on url param """
+		self.author = self.kwargs['author']
+		profile_posts = super(ProfileBlog, self).get_queryset()
+		return profile_posts.filter(author=self.author)
