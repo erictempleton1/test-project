@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-from project.models import BlogPost
+from project.models import BlogPost, UserProfile
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm
