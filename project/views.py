@@ -67,6 +67,16 @@ class ProfileBlog(ListView):
 		profile_posts = super(ProfileBlog, self).get_queryset()
 		return profile_posts.filter(author=self.author)
 
+	def get_context_data(self, **kwargs):
+		context = super(ProfileBlog, self).get_context_data(**kwargs)
+		context['author'] = self.kwargs['author']
+		return context
+
 class UserDashboard(ListView):
 	model = BlogPost
 	template_name = 'project/user_profile.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(UserDashboard, self).get_context_data(**kwargs)
+		context['user'] = self.kwargs['user']
+		return context
