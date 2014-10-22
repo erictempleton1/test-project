@@ -66,3 +66,7 @@ class ProfileBlog(ListView):
 		self.author = self.kwargs['author']
 		profile_posts = super(ProfileBlog, self).get_queryset()
 		return profile_posts.filter(author=self.author)
+
+class UserDashboard(ListView):
+	model = BlogPost
+	template_name = 'project/user_profile.html'
