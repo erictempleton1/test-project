@@ -76,6 +76,9 @@ class UserDashboard(ListView):
 	model = BlogPost
 	template_name = 'project/user_profile.html'
 
+	def get_queryset(self):
+		pass
+
 	def get_context_data(self, **kwargs):
 		context = super(UserDashboard, self).get_context_data(**kwargs)
 		context['user'] = self.kwargs['user']
