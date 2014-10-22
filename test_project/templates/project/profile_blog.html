@@ -1,10 +1,8 @@
 <html>
 <body>
-Oh, no!
-
 <ul>
     {% for post in object_list %}
-        <li><h5><a href="{% url "project:blog_content" post.pk post.slug %}">{{ post.title }}</a>
+        <li><h5><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a>
          | by: {{ post.author }}</h5></li>
     {% endfor %}
 </ul>

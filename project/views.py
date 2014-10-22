@@ -42,7 +42,7 @@ class BlogPostUpdate(UpdateView):
 		return user_set.filter(user=self.request.user)
 
 	def get_success_url(self):
-		return reverse('project:blog_content', kwargs={
+		return reverse('project:detail', kwargs={
 			'id': self.object.id,
 			'slug': self.object.slug,
 			})
