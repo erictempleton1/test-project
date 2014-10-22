@@ -57,7 +57,7 @@ class BlogPostDelete(DeleteView):
 		return user_set.filter(user=self.request.user)
 
 class ProfileBlog(ListView):
-	""" Lists posts by specific user """
+	""" Lists all posts by specific user """
 	model = BlogPost
 	template_name = 'project/profile_blog.html'
 
@@ -73,6 +73,7 @@ class ProfileBlog(ListView):
 		return context
 
 class UserDashboard(ListView):
+	""" Dashboard where a user can view/edit/delete their posts """
 	model = BlogPost
 	template_name = 'project/user_profile.html'
 
