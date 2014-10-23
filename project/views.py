@@ -74,17 +74,17 @@ class ProfileBlog(ListView):
 		return context
 
 class UserDashboard(ListView):
-	""" Dashboard where a user can view/edit/delete their posts """
-	model = BlogPost
-	template_name = 'project/user_profile.html'
+    """ Dashboard where a user can view/edit/delete their posts """
+    model = BlogPost
+    template_name = 'project/user_profile.html'
 
-	def get_queryset(self):
-		""" Queries posts by auth'd user """
-	    user_posts = super(UserDashboard, self).get_queryset()
-	    return user_posts.filter(author=self.request.user)
+    def get_queryset(self):
+        """ Queries posts by auth'd user """
+        user_posts = super(UserDashboard, self).get_queryset()
+        return user_posts.filter(author=self.request.user)
 
-	def get_context_data(self, **kwargs):
-		""" Uses auth'd user as context var to template """
-		context = super(UserDashboard, self).get_context_data(**kwargs)
-		context['user'] = self.request.user
-		return context
+    def get_context_data(self, **kwargs):
+        """ Uses auth'd user as context var to template """
+        context = super(UserDashboard, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
