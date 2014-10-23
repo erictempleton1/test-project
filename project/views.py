@@ -2,6 +2,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from project.models import BlogPost, UserProfile
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from project.forms import BlogForm
 
 class HomePageView(ListView):
@@ -78,11 +79,12 @@ class UserDashboard(ListView):
 	template_name = 'project/user_profile.html'
 
 	def get_queryset(self):
-	    self.user_param = self.kwargs['author']
+		""" Queries posts by auth'd user """
 	    user_posts = super(UserDashboard, self).get_queryset()
-	    return user_posts.filter(author=self.user_param)
+	    return user_posts.filter(author=self.request.user)
 
 	def get_context_data(self, **kwargs):
+		""" Uses auth'd user as context var to template """
 		context = super(UserDashboard, self).get_context_data(**kwargs)
-		context['author'] = self.kwargs['author']
+		context['user'] = self.request.user
 		return context
