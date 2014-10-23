@@ -78,9 +78,11 @@ class UserDashboard(ListView):
 	template_name = 'project/user_profile.html'
 
 	def get_queryset(self):
-		pass
+	    self.user_param = self.kwargs['author']
+	    user_posts = super(UserDashboard, self).get_queryset()
+	    return user_posts.filter(author=self.user_param)
 
 	def get_context_data(self, **kwargs):
 		context = super(UserDashboard, self).get_context_data(**kwargs)
-		context['user'] = self.kwargs['user']
+		context['author'] = self.kwargs['author']
 		return context

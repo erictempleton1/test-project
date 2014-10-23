@@ -1,3 +1,11 @@
 User Dashboard
 
-{{ user }}
+
+<h4>Posts by: {{ author }} </h4>	
+<ul>
+    {% for post in object_list %}
+        <li>
+        	<h5><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a></h5>
+        </li>
+    {% endfor %}
+</ul>
