@@ -21,8 +21,8 @@ class BlogPost(models.Model):
         return self.title
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User)
-    following = models.ManyToManyField('self', related_name='follows', symmetrical=False)
+    user = models.OneToOneField(User)
+    follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
 
     def __unicode__(self):
         return self.following
