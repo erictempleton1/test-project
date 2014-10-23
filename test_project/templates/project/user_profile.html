@@ -5,7 +5,11 @@ User Dashboard
 <ul>
     {% for post in object_list %}
         <li>
-        	<h5><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a></h5>
+        	<h5>
+        		<a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a> 
+        		<a href="{% url "project:update" post.pk post.slug %}">Update</a> 
+        		<a href="{% url "project:delete" post.pk post.slug %}">Delete</a>
+        	</h5>
         </li>
     {% endfor %}
 </ul>
