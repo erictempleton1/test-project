@@ -11,9 +11,17 @@ class HomePageView(ListView):
 	template_name = 'project/index.html'
 
 class BlogPostDetail(DetailView):
-	""" Single blog post content viewable by all users. """
-	model = BlogPost
-	template_name = 'project/blogpost_list.html'
+    """ Single blog post content viewable by all users. """
+    model = BlogPost
+    template_name = 'project/blogpost_list.html'
+
+    def get_context_data(self, **kwargs):
+    	""" Query to return blog tags based on blog post id from url param """
+        context = super(BlogPostDetail, self).get_context_data(**kwargs)
+        blog_id = self.kwargs['id']
+        blog_tags = BlogPost.objects.get(pk=blog_id)
+        context['tags'] = blog_tags.blogposttags_set.all()
+        return context
 
 class BlogPostCreate(CreateView):
 	""" Requires login, and saves to logged in user. """

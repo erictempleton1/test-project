@@ -1,3 +1,8 @@
 <h1>{{ blogpost.title }}</h1>
 <h5>Author: {{ blogpost.author }} | Added: {{ blogpost.added }} | Updated: {{ blogpost.updated }}</h5>
 <p>{{ blogpost.content }}</p>
+
+Tags:
+{% for tag in tags %}
+ <a href="#">{{ tag }}</a>
+{% endfor %}
