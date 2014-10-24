@@ -20,9 +20,9 @@ class BlogPost(models.Model):
     def __unicode__(self):
         return self.title
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+class BlogPostTags(models.Model):
+    tag = models.CharField(max_length=100)
+    blog_posts = models.ManyToManyField(BlogPost)
 
     def __unicode__(self):
-        return self.following
+        return self.tag
