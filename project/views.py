@@ -101,12 +101,13 @@ class BlogTags(ListView):
 	model = BlogPostTags
 	template_name = 'project/tag_blogs.html'
 
-	def get_query_set(self):
-		self.tag = self.kwargs['tags']
-		blog_tag = super(BlogTags, self).get_queryset()
-		return BlogPost.objects.filter(blogposttags__tags=self.tag)
-
 	def get_context_data(self, **kwargs):
+		""" 
+		Returns tag name from url to template,
+        and queries for posts with tag
+        """
 		context = super(BlogTags, self).get_context_data(**kwargs)
+		self.tags = self.kwargs['tags']
 		context['tag'] = self.kwargs['tags']
+		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tags=str(self.tags))
 		return context
