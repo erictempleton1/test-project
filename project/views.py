@@ -95,3 +95,7 @@ class UserDashboard(ListView):
         context = super(UserDashboard, self).get_context_data(**kwargs)
         context['user'] = self.request.user
         return context
+
+# add view for querying tags
+# similar to below, but based on tag name
+# tagged_posts = BlogPost.objects.filter(blogposttags__pk=3)
