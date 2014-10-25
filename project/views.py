@@ -96,7 +96,6 @@ class UserDashboard(ListView):
         context['user'] = self.request.user
         return context
 
-# tagged_posts = BlogPost.objects.filter(blogposttags__pk=3)
 class BlogTags(ListView):
 	""" Lists blog posts with a certain tag """
 	model = BlogPostTags
