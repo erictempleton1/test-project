@@ -25,4 +25,4 @@ class BlogPostTags(models.Model):
     blog_posts = models.ManyToManyField(BlogPost)
 
     def __unicode__(self):
-        return self.tag
+        return self.tags
