@@ -1,0 +1,9 @@
+<h5>Posts tagged as: {{ tag }}</h5>
+
+<ul>
+    {% for item in object_list %}
+        <li>
+        	<h5>{{ item.title }}</a></h5>
+        </li>
+    {% endfor %}
+</ul>

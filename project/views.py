@@ -96,6 +96,18 @@ class UserDashboard(ListView):
         context['user'] = self.request.user
         return context
 
-# add view for querying tags
-# similar to below, but based on tag name
 # tagged_posts = BlogPost.objects.filter(blogposttags__pk=3)
+class BlogTags(ListView):
+	""" Lists blog posts with a certain tag """
+	model = BlogPostTags
+	template_name = 'project/tag_blogs.html'
+
+	def get_query_set(self):
+		self.tag = self.kwargs['tags']
+		blog_tag = super(BlogTags, self).get_queryset()
+		return BlogPost.objects.filter(blogposttags__tags=self.tag)
+
+	def get_context_data(self, **kwargs):
+		context = super(BlogTags, self).get_context_data(**kwargs)
+		context['tag'] = self.kwargs['tags']
+		return context
