@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
-from project.views import BlogPostCreate, HomePageView, BlogPostDetail, BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard
+from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
+	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard)
 
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
