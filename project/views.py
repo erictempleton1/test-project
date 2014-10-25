@@ -2,7 +2,6 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from project.models import BlogPost, BlogPostTags
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import Http404
 from project.forms import BlogForm
 
 class HomePageView(ListView):
