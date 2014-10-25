@@ -4,5 +4,5 @@
 
 Tags:
 {% for tag in tags %}
- <a href="#">{{ tag.tags }}</a>
+ <a href="{% url "project:tagged_posts" tag.tags %}">{{ tag.tags }}</a>
 {% endfor %}
