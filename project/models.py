@@ -26,3 +26,6 @@ class BlogPostTags(models.Model):
 
     def __unicode__(self):
         return self.tags
+
+class UserProfile(models.Model):
+    pass
