@@ -28,4 +28,8 @@ class BlogPostTags(models.Model):
         return self.tags
 
 class UserProfile(models.Model):
-    pass
+    user = models.ForeignKey(User)
+    follow = models.ManyToManyField('self', symmetrical=False)
+
+    def __unicode__(self):
+        return self.follow
