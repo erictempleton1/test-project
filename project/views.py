@@ -1,8 +1,8 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-from project.models import BlogPost, BlogPostTags, UserProfile
+from project.models import BlogPost, BlogPostTags
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from project.forms import BlogForm
+from project.forms import BlogForm, BlogPostTagsForm
 
 class HomePageView(ListView):
 	""" Lists all blog posts for every user. """
@@ -35,6 +35,18 @@ class BlogPostCreate(CreateView):
 
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
+
+class AddTags(CreateView):
+	""" Adds tags to given blog post """
+	form_class = BlogPostTagsForm
+	template_name = 'project/add_tags.html'
+
+	def get_success_url(self):
+		""" Returns user to original blog post """
+		return reverse('project:detail', kwargs={
+			'id': self.object.id,
+			'slug': self.object.slug,
+			})
 
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """

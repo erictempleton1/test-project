@@ -17,6 +17,3 @@ class BlogPostTagsForm(forms.ModelForm):
 	class Meta:
 		model = BlogPostTags
 		fields = ['tags']
-
-
-

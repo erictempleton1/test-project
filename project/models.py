@@ -26,10 +26,3 @@ class BlogPostTags(models.Model):
 
     def __unicode__(self):
         return self.tags
-
-class UserProfile(models.Model):
-    user = models.ForeignKey(User)
-    follow = models.ManyToManyField('self', symmetrical=False)
-
-    def __unicode__(self):
-        return self.follow
