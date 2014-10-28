@@ -2,6 +2,7 @@
 from django import forms
 from project.models import BlogPost, BlogPostTags
 
+
 class BlogForm(forms.ModelForm):
 
 	class Meta:
