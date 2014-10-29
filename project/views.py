@@ -37,25 +37,6 @@ class BlogPostCreate(CreateView):
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
 
-class AddTags(FormView):
-	""" Adds tags to given blog post """
-	form_class = BlogPostTagsForm
-	template_name = 'project/add_tags.html'
-
-	def form_valid(self, form):
-
-		return super(AddTags, self).form_valid(form)
-
-	def form_invalid(self, form):
-		return self.render_to_response(self.get_context_data(form=form))
-
-	def get_success_url(self):
-		""" Returns user to original blog post """
-		return reverse('project:detail', kwargs={
-			'id': self.object.id,
-			'slug': self.object.slug,
-			})
-
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """
 	model = BlogPost
@@ -116,6 +97,33 @@ class UserDashboard(ListView):
         context['user'] = self.request.user
         return context
 
+class AddTags(FormView):
+    """ Adds tags to given blog post """
+    form_class = BlogPostTagsForm
+    template_name = 'project/add_tags.html'
+    
+    def form_valid(self, form):
+    	""" Uses url param id to query current post """
+        self.blog_id = self.kwargs['id']
+        self.blog_tag = form.cleaned_data['tag'].strip()
+
+        """ Save to M2M with whitespace removed data """
+        current_blog = BlogPost.objects.get(id=self.blog_id)
+        add_tag = BlogPostTags(tag=self.blog_tag)
+        add_tag.save()
+        add_tag.blog_posts.add(current_blog)
+        return super(AddTags, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+	def get_success_url(self):
+		""" Returns user to original blog post """
+		return reverse('project:detail', kwargs={
+			'id': self.object.id,
+			'slug': self.object.slug,
+			})
+
 class BlogTags(ListView):
 	""" Lists blog posts with a certain tag """
 	model = BlogPostTags
@@ -127,7 +135,7 @@ class BlogTags(ListView):
         and queries for posts with tag
         """
 		context = super(BlogTags, self).get_context_data(**kwargs)
-		self.tags = self.kwargs['tags']
-		context['tag'] = self.kwargs['tags']
-		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tags))
+		self.tag = self.kwargs['tag']
+		context['tag'] = self.kwargs['tag']
+		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tag))
 		return context
