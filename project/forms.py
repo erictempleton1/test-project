@@ -1,4 +1,3 @@
-# add forms here
 from django import forms
 from project.models import BlogPost, BlogPostTags
 
@@ -16,4 +15,4 @@ class BlogPostTagsForm(forms.ModelForm):
 
 	class Meta:
 		model = BlogPostTags
-		fields = ['tags']
+		fields = ['tag']

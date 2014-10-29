@@ -3,6 +3,6 @@
 <p>{{ blogpost.content }}</p>
 
 Tags:
-{% for tag in tags %}
+{% for tag in tag %}
  <a href="{% url "project:tagged_posts" tag.tags %}">{{ tag.tags }}</a>
 {% endfor %}

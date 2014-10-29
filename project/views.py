@@ -1,4 +1,5 @@
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
+from django.views.generic import (ListView, CreateView, DetailView,
+                    UpdateView, DeleteView, TemplateView, FormView)
 from project.models import BlogPost, BlogPostTags
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -36,10 +37,17 @@ class BlogPostCreate(CreateView):
 	def form_invalid(self, form):
 		return self.render_to_response(self.get_context_data(form=form))
 
-class AddTags(CreateView):
+class AddTags(FormView):
 	""" Adds tags to given blog post """
 	form_class = BlogPostTagsForm
 	template_name = 'project/add_tags.html'
+
+	def form_valid(self, form):
+
+		return super(AddTags, self).form_valid(form)
+
+	def form_invalid(self, form):
+		return self.render_to_response(self.get_context_data(form=form))
 
 	def get_success_url(self):
 		""" Returns user to original blog post """
@@ -121,5 +129,5 @@ class BlogTags(ListView):
 		context = super(BlogTags, self).get_context_data(**kwargs)
 		self.tags = self.kwargs['tags']
 		context['tag'] = self.kwargs['tags']
-		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tags=str(self.tags))
+		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tags))
 		return context
