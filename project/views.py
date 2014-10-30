@@ -114,15 +114,15 @@ class AddTags(FormView):
         add_tag.blog_posts.add(current_blog)
         return super(AddTags, self).form_valid(form)
 
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
-
-	def get_success_url(self):
+    def get_success_url(self):
 		""" Returns user to original blog post """
 		return reverse('project:detail', kwargs={
-			'id': self.object.id,
-			'slug': self.object.slug,
+			'id': self.kwargs['id'],
+			'slug': self.kwargs['slug'],
 			})
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
 class BlogTags(ListView):
 	""" Lists blog posts with a certain tag """
