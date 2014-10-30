@@ -105,9 +105,9 @@ class AddTags(FormView):
     def form_valid(self, form):
     	""" Uses url param id to query current post """
         self.blog_id = self.kwargs['id']
-        self.blog_tag = form.cleaned_data['tag'].strip()
+        self.blog_tag = ''.join(form.cleaned_data['tag'].split()) #removes spaces
 
-        """ Save to M2M with whitespace removed data """
+        """ Save to M2M with whitespace removed """
         current_blog = BlogPost.objects.get(id=self.blog_id)
         add_tag = BlogPostTags(tag=self.blog_tag)
         add_tag.save()
