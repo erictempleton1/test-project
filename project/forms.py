@@ -3,7 +3,6 @@ from django.forms import ModelForm, CharField
 from project.models import BlogPost, BlogPostTags
 from django.core.validators import validate_slug
 
-
 class BlogForm(forms.ModelForm):
 
 	class Meta:
