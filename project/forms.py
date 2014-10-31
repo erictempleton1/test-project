@@ -1,5 +1,7 @@
 from django import forms
+from django.forms import ModelForm, CharField
 from project.models import BlogPost, BlogPostTags
+from django.core.validators import validate_slug
 
 
 class BlogForm(forms.ModelForm):
@@ -13,6 +15,8 @@ class BlogForm(forms.ModelForm):
 
 class BlogPostTagsForm(forms.ModelForm):
 
-	class Meta:
-		model = BlogPostTags
-		fields = ['tag']
+    tag = CharField(validators=[validate_slug])
+
+    class Meta:
+        model = BlogPostTags
+        fields = ['tag']
