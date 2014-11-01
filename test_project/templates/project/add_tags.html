@@ -4,3 +4,12 @@
 
 	<p><input type="submit" value="Add Tag" /></p>
 </form>
+
+Current tags:
+{% for item in tags %}
+ <a href="{% url "project:tagged_posts" item.tag %}">{{ item.tag }}</a>
+{% endfor %}
+
+<h1>{{ blog_post.title }}</h1>
+<h5>Author: {{ blog_post.author }} | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
+<p>{{ blog_post.content }}</p>
