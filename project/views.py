@@ -11,10 +11,9 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
-class BlogPostDetail(FormMixin, DetailView):
+class BlogPostDetail(DetailView):
     """ Single blog post content viewable by all users. """
     model = BlogPost
-    form_class = BlogPostTagsForm
     template_name = 'project/blogpost_list.html'
 
     def get_context_data(self, **kwargs):
@@ -24,28 +23,6 @@ class BlogPostDetail(FormMixin, DetailView):
         blog_tags = BlogPost.objects.get(pk=blog_id)
         context['tags'] = blog_tags.blogposttags_set.all()
         return context
-
-    def form_valid(self, form):
-    	""" Uses url param id to query current post """
-        self.blog_id = self.kwargs['id']
-        self.blog_tag = form.cleaned_data['tag'].lower()
-
-        """ Save to M2M using validate slug to ensure no spaces"""
-        current_blog = BlogPost.objects.get(id=self.blog_id)
-        add_tag = BlogPostTags(tag=self.blog_tag)
-        add_tag.save()
-        add_tag.blog_posts.add(current_blog)
-        return super(BlogPostDetail, self).form_valid(form)
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
-
-    def get_success_url(self):
-		""" Returns user to original blog post """
-		return reverse('project:detail', kwargs={
-			'id': self.kwargs['id'],
-			'slug': self.kwargs['slug'],
-			})
 
 class BlogPostCreate(CreateView):
 	""" Requires login, and saves to logged in user. """

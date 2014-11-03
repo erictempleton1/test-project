@@ -6,10 +6,3 @@ Tags:
 {% for item in tags %}
  <a href="{% url "project:tagged_posts" item.tag %}">{{ item.tag }}</a>
 {% endfor %}
-
-<form action="" method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-
-	<p><input type="submit" value="Add Tag" /></p>
-</form>
