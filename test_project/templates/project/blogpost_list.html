@@ -1,6 +1,13 @@
-<h1>{{ blogpost.title }}</h1>
-<h5>Author: {{ blogpost.author }} | Added: {{ blogpost.added }} | Updated: {{ blogpost.updated }}</h5>
-<p>{{ blogpost.content }}</p>
+<h1>{{ blog_post.title }}</h1>
+<h5>Author: {{ blog_post.author }} | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
+<p>{{ blog_post.content }}</p>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+
+	<p><input type="submit" value="Add Tag" /></p>
+</form>
 
 Tags:
 {% for item in tags %}
