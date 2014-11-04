@@ -2,12 +2,15 @@
 <h5>Author: {{ blog_post.author }} | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
 <p>{{ blog_post.content }}</p>
 
+
+{% if user.is_authenticated %}
 <form action="" method="post">
 	{% csrf_token %}
 	{{ form.as_p }}
 
 	<p><input type="submit" value="Add Tag" /></p>
 </form>
+{% endif %}
 
 Tags:
 {% for item in tags %}

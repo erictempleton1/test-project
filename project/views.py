@@ -22,6 +22,7 @@ class BlogPostDetail(FormView):
 		self.id = self.kwargs['id']
 		context['blog_post'] = BlogPost.objects.get(id=self.id)
 		context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
+		context['current_user'] = self.request.user
 		return context
 
     def form_valid(self, form):
@@ -35,40 +36,6 @@ class BlogPostDetail(FormView):
         add_tag.save()
         add_tag.blog_posts.add(current_blog)
         return super(BlogPostDetail, self).form_valid(form)
-
-    def get_success_url(self):
-		""" Returns user to original blog post """
-		return reverse('project:detail', kwargs={
-			'id': self.kwargs['id'],
-			'slug': self.kwargs['slug'],
-			})
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
-
-class AddTags(FormView):
-    """ Adds tags to given blog post """
-    form_class = BlogPostTagsForm
-    template_name = 'project/add_tags.html'
-
-    def get_context_data(self, **kwargs):
-		context = super(AddTags, self).get_context_data(**kwargs)
-		self.id = self.kwargs['id']
-		context['blog_post'] = BlogPost.objects.get(id=self.id)
-		context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
-		return context
-    
-    def form_valid(self, form):
-    	""" Uses url param id to query current post """
-        self.blog_id = self.kwargs['id']
-        self.blog_tag = form.cleaned_data['tag'].lower()
-
-        """ Save to M2M using validate slug to ensure no spaces"""
-        current_blog = BlogPost.objects.get(id=self.blog_id)
-        add_tag = BlogPostTags(tag=self.blog_tag)
-        add_tag.save()
-        add_tag.blog_posts.add(current_blog)
-        return super(AddTags, self).form_valid(form)
 
     def get_success_url(self):
 		""" Returns user to original blog post """
