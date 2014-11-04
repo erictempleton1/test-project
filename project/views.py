@@ -22,7 +22,7 @@ class BlogPostDetail(FormView):
 		self.id = self.kwargs['id']
 		context['blog_post'] = BlogPost.objects.get(id=self.id)
 		context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
-		context['current_user'] = self.request.user
+		context['current_user'] = str(self.request.user)
 		return context
 
     def form_valid(self, form):
