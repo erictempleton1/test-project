@@ -1,5 +1,13 @@
 <h3>Home</h3>
 
+{% if user.is_authenticated %}
+<h5><a href="/accounts/logout">Logout</a></h5>
+
+{% else %}
+<h5><a href="/accounts/login">Log in</a></h5>
+<h5><a href="accounts/register">Sign up</a></h5>
+{% endif %}
+
 <ul>
     {% for post in object_list %}
         <li><h5><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a>
