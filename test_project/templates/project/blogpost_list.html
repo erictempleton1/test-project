@@ -1,6 +1,6 @@
 <h1>{{ blog_post.title }}</h1>
 <h5>Author: {{ blog_post.author }} | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
-<p>{{ blog_post.content }}</p>
+<p>{{ blog_post.content|safe }}</p>
 
 
 {% if blog_post.author == current_user %}
