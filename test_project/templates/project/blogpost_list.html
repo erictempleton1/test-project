@@ -4,16 +4,20 @@
 
 
 {% if blog_post.author == current_user %}
-<form action="" method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
+<p>
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
 
-	<p><input type="submit" value="Add Tag" /></p>
-</form>
+		<p><input type="submit" value="Add Tag" /></p>
+	</form>
+</p>
 {% endif %}
 
-Tags:
-{% for item in tags %}
- <a href="{% url "project:tagged_posts" item.tag %}">{{ item.tag }}</a>
-{% endfor %}
+
+<p>Tags:
+	{% for item in tags %}
+	 	<a href="{% url "project:tagged_posts" item.tag %}">{{ item.tag }}</a>
+	{% endfor %}
+</p>
 
