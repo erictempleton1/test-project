@@ -69,8 +69,12 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
-            <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/accounts/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/accounts/login">Log in</a></li>
+            <li><a href="/accounts/register">Create Account</a></li>
+            {% endif %}
           </ul>
 
         </div>
@@ -80,7 +84,7 @@
     <div class="container">
 
     <br><br><br>
-      
+
     {% block content %}{% endblock %}
 
 
