@@ -1,3 +1,7 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
 <h5>Posts tagged as: {{ tag }}</h5>
 
 
@@ -7,3 +11,5 @@
     | by: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>
 </h5>
 {% endfor %}
+
+{% endblock %}
