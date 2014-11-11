@@ -1,5 +1,14 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
 <form action="" method="post">
 	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit">
+	<p>Username: {{ form.username }}</p>
+	<p>Email: {{ form.email }}</p>
+	<p>Password: {{ form.password1 }}</p>
+	<p>Password (again): {{ form.password2 }}</p>
+	<input type="submit" value="Submit">
 </form>
+
+{% endblock %}
