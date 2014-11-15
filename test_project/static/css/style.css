@@ -1,11 +1,13 @@
 .navbar-default {
-	background: rgba(0,0,0,0.6);
+	background: rgba(0,0,0,0.5);
 	border-color: #5B5B5B;
 }
 
 body {
 	font-family: Ubuntu,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color: #282828;
+	padding-top: 75px;
+  	padding-bottom: 20px;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
@@ -24,4 +26,9 @@ body {
 
 .navbar-default .navbar-brand {
     color: #A9A9A9;
+}
+
+/* Move header image up flush with navbar */
+.header-image {
+	margin-top: -80px;
 }
