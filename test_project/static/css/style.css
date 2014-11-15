@@ -5,4 +5,23 @@
 
 body {
 	font-family: Ubuntu,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #282828;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #DCDCDC;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #A9A9A9;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #DCDCDC;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+    color: #A9A9A9;
 }
