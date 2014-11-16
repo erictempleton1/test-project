@@ -11,6 +11,10 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
+class AboutPageView(ListView):
+	model = BlogPost
+	template_name = 'project/about.html'
+
 class BlogPostDetail(FormView):
     """ Single blog post content viewable by all users. """
     model = BlogPost
@@ -18,12 +22,13 @@ class BlogPostDetail(FormView):
     template_name = 'project/blogpost_list.html'
 
     def get_context_data(self, **kwargs):
-		context = super(BlogPostDetail, self).get_context_data(**kwargs)
-		self.id = self.kwargs['id']
-		context['blog_post'] = BlogPost.objects.get(id=self.id)
-		context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
-		context['current_user'] = str(self.request.user)
-		return context
+        """ Gets post, and tags for post by id """
+        context = super(BlogPostDetail, self).get_context_data(**kwargs)
+        self.id = self.kwargs['id']
+        context['blog_post'] = BlogPost.objects.get(id=self.id)
+        context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
+        context['current_user'] = str(self.request.user)
+        return context
 
     def form_valid(self, form):
     	""" Uses url param id to query current post """
