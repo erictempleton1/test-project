@@ -11,7 +11,7 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
-class AboutPageView(ListView):
+class AboutPageView(TemplateView):
 	model = BlogPost
 	template_name = 'project/about.html'
 
