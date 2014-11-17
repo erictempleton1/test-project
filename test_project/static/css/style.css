@@ -24,6 +24,16 @@ body {
   	padding-bottom: 20px;
 }
 
+a {
+    color: #282828;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #525252;
+    text-decoration: none;
+}
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #DCDCDC;
     background-color: transparent;
