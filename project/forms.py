@@ -11,7 +11,7 @@ class BlogForm(forms.ModelForm):
 		fields = ['title', 'content']
 		widgets = {
 		'content': SummernoteWidget(),
-		'title': forms.TextInput(attrs={'size': '90%'}),
+		'title': forms.TextInput(attrs={'size': '90%', 'placeholder': 'Title',}),
 		}
 
 class BlogPostTagsForm(forms.ModelForm):

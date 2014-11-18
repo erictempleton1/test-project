@@ -4,8 +4,8 @@
 
 <form action="" method="post">
 	{% csrf_token %}
-	<p>Title: {{ form.title }}</p>
-	{{ form.content }}
+	<p>{{ form.title }}</p>
+	<p>{{ form.content }}</p>
 
 	<p><input type="submit" value="Create Post" /></p>
 </form>
