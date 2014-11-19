@@ -1,5 +1,15 @@
+/* main navbar background color and opacity */
 .navbar-default {
 	background: rgba(61,89,171,0.9);
+}
+
+/* toggled navbar "sandwich" lines color */
+.navbar-default .navbar-toggle .icon-bar {
+background-color: #F5F5F5;
+}
+
+.navbar-default .navbar-toggle {
+border-color: #F5F5F5;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
@@ -39,11 +49,13 @@ a:hover, a:focus {
     color: #F5F5F5;
 }
 
+/* navbar site name (brand) link color on hover */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
     color: #DCDCDC;
     background-color: transparent;
 }
 
+/* navbar site name (brand) text color */
 .navbar-default .navbar-brand {
     color: #F5F5F5;
 }
