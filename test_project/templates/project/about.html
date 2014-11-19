@@ -1,6 +1,12 @@
 {% extends "project/base.html" %}
 {% load staticfiles %}
 
+{% block about %}
+<li class="active">
+  <a href="{% url 'project:about' %}">About</a>
+</li>
+{% endblock %}
+
 {% block content %}
 
 <h3>About</h3>
