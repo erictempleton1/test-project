@@ -48,17 +48,17 @@
 
             {% endif %}
 
-            {% block recent_posts %}
-            <li>
-              <a href="#">Recent Posts</a>
-            </li>
-            {% endblock %}
+              {% block recent_posts %}
+              <li>
+                <a href="#">Recent Posts</a>
+              </li>
+              {% endblock %}
 
-            {% block about %}
-            <li>
-              <a href="{% url 'project:about' %}">About</a>
-            </li>
-            {% endblock %}
+              {% block about %}
+              <li>
+                <a href="{% url 'project:about' %}">About</a>
+              </li>
+              {% endblock %}
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
