@@ -2,20 +2,19 @@
 {% load staticfiles %}
 
 
-{% block header_image %}
-<div class="row">
-    	<img src="{% static "images/IMG_2941.JPG" %}" class="header-image img-responsive"style="width: 100%; height: 350px; opacity: 1;">
-</div>
-{% endblock %}
-
-
 {% block content %}
-<h3>Home</h3>
 
 <ul>
     {% for post in object_list %}
-        <li><h5><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a>
-         | by: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a></h5></li>
+        <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
+         <h5>
+         	Author: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>
+         	 | Added: {{ post.added }} | Updated: {{ post.updated }}
+         </h5>
+         <p>
+	         {{ post.content|safe|truncatechars:425 }}
+	         <a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
+	     </p>
     {% endfor %}
 </ul>
 {% endblock %}
