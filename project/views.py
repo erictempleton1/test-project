@@ -11,6 +11,10 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
+	def get_queryset(self):
+		# write query set to get all post and order_by most recent
+		pass
+
 class AboutPageView(TemplateView):
 	model = BlogPost
 	template_name = 'project/about.html'
