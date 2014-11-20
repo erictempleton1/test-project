@@ -5,7 +5,7 @@
 {% block content %}
 
 <ul>
-    {% for post in object_list %}
+    {% for post in all_posts %}
         <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
          <h5>
          	Author: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>

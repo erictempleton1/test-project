@@ -11,9 +11,11 @@ class HomePageView(ListView):
 	model = BlogPost
 	template_name = 'project/index.html'
 
-	def get_queryset(self):
-		# write query set to get all post and order_by most recent
-		pass
+	def get_context_data(self, **kwargs):
+		""" Returns all posts sorted by most recent """
+		context = super(HomePageView, self).get_context_data(**kwargs)
+		context['all_posts'] = BlogPost.objects.all().order_by('-added')
+		return context
 
 class AboutPageView(TemplateView):
 	model = BlogPost
