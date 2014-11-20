@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>{{ blog_post.title }}</h1>
-<h5>Author: {{ blog_post.author }} | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
+<h5>Author: <a href="{% url 'project:profile_detail' blog_post.author %}">{{ blog_post.author }}</a> | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
 <p>{{ blog_post.content|safe }}</p>
 
 
