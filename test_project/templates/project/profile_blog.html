@@ -5,9 +5,15 @@
 <h4>Posts by: {{ author }} </h4>	
 <ul>
     {% for post in object_list %}
-        <li>
-        	<h5><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a></h5>
-        </li>
+        <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
+         <h5>
+         	Author: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>
+         	 | Added: {{ post.added }} | Updated: {{ post.updated }}
+         </h5>
+         <p>
+	         {{ post.content|safe|truncatechars:425 }}
+	         <a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
+	     </p>
     {% endfor %}
 </ul>
 
