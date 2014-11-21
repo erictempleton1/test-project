@@ -21,9 +21,11 @@
 
 <p><span class="glyphicon glyphicon-tags" aria-hidden="true">
 	{% for item in tags %}
+	 <a href="{% url "project:tagged_posts" item.tag %}">
 	 	<button type="button" class="btn btn-default btn-sm">
-	 		<a href="{% url "project:tagged_posts" item.tag %}">{{ item.tag }}</a>
+	 		{{ item.tag }}
 	 	</button>
+	 </a>
 	{% endfor %}
 </span>
 </p>

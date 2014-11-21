@@ -109,7 +109,7 @@ class ProfileBlog(ListView):
 		""" Queries based on url param """
 		self.author = self.kwargs['author']
 		profile_posts = super(ProfileBlog, self).get_queryset()
-		return profile_posts.filter(author=self.author)
+		return profile_posts.filter(author=self.author).order_by('-added')
 
 	def get_context_data(self, **kwargs):
 		context = super(ProfileBlog, self).get_context_data(**kwargs)
