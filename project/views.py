@@ -5,6 +5,7 @@ from project.models import BlogPost, BlogPostTags
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
+from collections import Counter
 
 class HomePageView(ListView):
 	""" Lists all blog posts for every user. """
@@ -15,6 +16,14 @@ class HomePageView(ListView):
 		""" Returns all posts sorted by most recent """
 		context = super(HomePageView, self).get_context_data(**kwargs)
 		context['all_posts'] = BlogPost.objects.all().order_by('-added')
+
+		# returns tuple of tags sorted by most popular for sidebar
+		# move this to its own function
+		all_tags = BlogPostTags.objects.all()
+		clean_tags = [str(tags) for tags in all_tags]
+		c = Counter(clean_tags)
+		popular_tags = c.most_common()
+
 		return context
 
 class AboutPageView(TemplateView):
