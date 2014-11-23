@@ -24,7 +24,11 @@
       <div class="col-sm-3" style="background-color: orange;">
       	<h5>Popular Tags:</h5>
       	{% for tag, count in tag_count %}
-      		<p>{{ tag }} | Count: {{ count }}</p>
+      	<a href="{% url "project:tagged_posts" tag %}">
+		 	<button type="button" class="btn btn-default btn-sm">
+		 		{{ tag }} ({{ count }})
+		 	</button>
+	 	</a>
       	{% endfor %}
 
         <p>Lorem ipsum dolor sit amet, eum at delicata reprimique scriptorem. Ne integre inimicus duo, cum fabellas sapientem in. Offendit appetere accommodare mel ut, nulla exerci voluptaria ei duo. Eu quo soluta eruditi definitionem. Eum ut error semper, utinam diceret insolens an vim. Vim an scripta pericula evertitur. An duo accumsan efficiendi delicatissimi, delenit nominavi corrumpit cu nam.</p>
