@@ -8,23 +8,22 @@ from project.forms import BlogForm, BlogPostTagsForm
 from collections import Counter
 
 class HomePageView(ListView):
-	""" Lists all blog posts for every user. """
-	model = BlogPost
-	template_name = 'project/index.html'
+    """ Lists all blog posts for every user. """
+    model = BlogPost
+    template_name = 'project/index.html'
 
-	def get_context_data(self, **kwargs):
-		""" Returns all posts sorted by most recent """
-		context = super(HomePageView, self).get_context_data(**kwargs)
-		context['all_posts'] = BlogPost.objects.all().order_by('-added')
+    def get_context_data(self, **kwargs):
+        """ Returns all posts sorted by most recent """
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['all_posts'] = BlogPost.objects.all().order_by('-added')
+        context['tag_count'] = self.tag_count(BlogPostTags.objects.all())
+        return context
 
-		# returns tuple of tags sorted by most popular for sidebar
-		# move this to its own function
-		all_tags = BlogPostTags.objects.all()
-		clean_tags = [str(tags) for tags in all_tags]
-		c = Counter(clean_tags)
-		popular_tags = c.most_common()
-
-		return context
+    def tag_count(self, tags):
+    	""" Creats tuple of tags by most popular, and provides count """
+        clean_tags = [str(tag) for tag in tags]
+        c = Counter(clean_tags)
+        return c.most_common()
 
 class AboutPageView(TemplateView):
 	model = BlogPost

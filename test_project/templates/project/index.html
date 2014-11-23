@@ -22,6 +22,11 @@
 {% block sidebar %}
 
       <div class="col-sm-3" style="background-color: orange;">
+      	<h5>Popular Tags:</h5>
+      	{% for tag, count in tag_count %}
+      		<p>{{ tag }} | Count: {{ count }}</p>
+      	{% endfor %}
+
         <p>Lorem ipsum dolor sit amet, eum at delicata reprimique scriptorem. Ne integre inimicus duo, cum fabellas sapientem in. Offendit appetere accommodare mel ut, nulla exerci voluptaria ei duo. Eu quo soluta eruditi definitionem. Eum ut error semper, utinam diceret insolens an vim. Vim an scripta pericula evertitur. An duo accumsan efficiendi delicatissimi, delenit nominavi corrumpit cu nam.</p>
 
         <p>In pro philosophia necessitatibus, wisi epicuri deserunt nec ei, putant ancillae officiis cu qui. Qui at tantas persius scripserit. Civibus iracundia appellantur te duo, ex mei hinc mollis deserunt. Mea audire maiorum albucius at, te est amet tantas impetus. Cum mazim maluisset constituam et, usu nibh lucilius voluptatibus ad, te his movet docendi.</p>
