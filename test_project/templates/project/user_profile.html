@@ -2,14 +2,30 @@
 
 {% block content %}
 
-<h4>Dashboard | {{ user }} </h4>	
+<p>
+	<h3>
+		Dashboard | {{ user.username }}
+		<h5>
+			Posts: {{ object_list|length }} <br>
+			Joined: {{ user.date_joined }} | Last Login: {{ user.last_login }}
+		</h5>
+	</h3>
+</p>
+<br>
 
     {% for post in object_list %}
-        	<h5>
-        		<p><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a></p>
-        		<a href="{% url "project:update" post.pk post.slug %}">Update</a> |
-        		<a href="{% url "project:delete" post.pk post.slug %}">Delete</a>
-        	</h5>
+	        		<p>
+	        			<h4>
+	        				<a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a><br>
+	        				<h5>Added: {{ post.added }} | Updated: {{ post.updated }}</h5>
+	        			</h4>	
+	        		</p>
+		        		<a href="{% url "project:update" post.pk post.slug %}">
+		        			<button type="button" class="btn btn-default btn-sm">Update</button>
+		        		</a> 
+		        		<a href="{% url "project:delete" post.pk post.slug %}">
+		        			<button type="button" class="btn btn-danger btn-sm">Delete</button>
+		        		</a>
     {% endfor %}
 
 
