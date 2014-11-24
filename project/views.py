@@ -20,7 +20,7 @@ class HomePageView(ListView):
         return context
 
     def tag_count(self, tags):
-    	""" Creats tuple of tags by most popular, and provides count """
+    	""" Creates tuple of tags by most popular, and provides count """
         clean_tags = [str(tag) for tag in tags]
         c = Counter(clean_tags)
         return c.most_common()

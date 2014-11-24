@@ -3,16 +3,14 @@
 {% block content %}
 
 <h4>Dashboard | {{ user }} </h4>	
-<ul>
+
     {% for post in object_list %}
-        <li>
         	<h5>
         		<p><a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a></p>
         		<a href="{% url "project:update" post.pk post.slug %}">Update</a> |
         		<a href="{% url "project:delete" post.pk post.slug %}">Delete</a>
         	</h5>
-        </li>
     {% endfor %}
-</ul>
+
 
 {% endblock %}
