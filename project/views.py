@@ -132,7 +132,7 @@ class UserDashboard(ListView):
     def get_queryset(self):
         """ Queries posts by auth'd user """
         user_posts = super(UserDashboard, self).get_queryset()
-        return user_posts.filter(author=self.request.user)
+        return user_posts.filter(author=self.request.user).order_by('-added')
 
     def get_context_data(self, **kwargs):
         """ Uses auth'd user as context var to template """
