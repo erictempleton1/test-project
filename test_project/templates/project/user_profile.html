@@ -5,10 +5,6 @@
 <p>
 	<h3>
 		Dashboard | {{ user.username }}
-		<h5>
-			Posts: {{ object_list|length }} <br>
-			Joined: {{ user.date_joined }} | Last Login: {{ user.last_login }}
-		</h5>
 	</h3>
 </p>
 <br>
@@ -28,5 +24,17 @@
 		        		</a>
     {% endfor %}
 
+
+{% endblock %}
+
+{% block sidebar %}
+
+<p>		
+	<h5>
+			<p>Posts: {{ object_list|length }}</p>
+			<p>Joined: {{ user.date_joined }}</p>
+			<p>Last Login: {{ user.last_login }}</p>
+	</h5>
+</p>
 
 {% endblock %}
