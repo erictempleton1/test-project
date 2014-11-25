@@ -32,6 +32,7 @@
 <p>		
 	<h5>
 			<p>Posts: {{ object_list|length }}</p>
+			<p>Last Post: {{ object_list.0.added }}</p>
 			<p>Joined: {{ user.date_joined }}</p>
 			<p>Last Login: {{ user.last_login }}</p>
 	</h5>
