@@ -27,10 +27,6 @@ class BlogPostTags(models.Model):
     def __unicode__(self):
         return self.tag
         
-class Followers(models.Model):
+class UserProfile(models.Model):
     user = models.ForeignKey(User)
-    name = models.CharField(max_length=100, blank=True)
-    following = models.ManyToManyField('self', related_name='followers', symmetrical=False, blank=True, null=True)
-    
-    def __unicode__(self):
-        return self.name
+    following = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)

@@ -1,7 +1,7 @@
 from django.views.generic import (ListView, CreateView, DetailView,
                     UpdateView, DeleteView, TemplateView, FormView)
 from django.views.generic.edit import FormMixin
-from project.models import BlogPost, BlogPostTags, Followers
+from project.models import BlogPost, BlogPostTags, UserProfile
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
