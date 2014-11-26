@@ -30,3 +30,21 @@ class BlogPostTags(models.Model):
 class UserProfile(models.Model):
     user = models.ForeignKey(User)
     following = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+    
+    def __unicode__(self):
+        return str(self.following)
+        
+        
+""" 
+Query notes for later
+
+In [5]: user_to_follow = User.objects.get(username='erictempleton')
+
+In [6]: f = UserProfile(user=eric)
+
+In [7]: f.save()
+
+In [8]: f.following.add(user_to_follow.id)
+
+"""
+
