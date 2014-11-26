@@ -153,5 +153,5 @@ class BlogTags(ListView):
 		context = super(BlogTags, self).get_context_data(**kwargs)
 		self.tag = self.kwargs['tag']
 		context['tag'] = self.kwargs['tag']
-		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tag))
+		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tag)).order_by('-added')
 		return context
