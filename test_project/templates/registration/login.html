@@ -2,14 +2,15 @@
 
 {% block content %}
 
+<div class="text-center">
+	<form action="" method="post">
+		{% csrf_token %}
+		<p>Username: {{ form.username }}</p>
+		<p>Password:  {{ form.password }}</p>
 
-<form action="" method="post">
-	{% csrf_token %}
-	<p>Username: {{ form.username }}</p>
-	<p>Password:  {{ form.password }}</p>
-
-	<input type="submit" value="Log in">
-</form>
+		<input type="submit" value="Log in">
+	</form>
+</div>
 
 
 {% endblock %}
