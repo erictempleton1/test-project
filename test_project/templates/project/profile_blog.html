@@ -7,7 +7,7 @@
     {% for post in object_list %}
         <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
          <h5>
-         	Author: <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>
+         	Author: {{ post.author }}
          	 | Added: {{ post.added }} | Updated: {{ post.updated }}
          </h5>
          <p>
