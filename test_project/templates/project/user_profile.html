@@ -2,6 +2,8 @@
 {% load staticfiles %}
 
 {% block content %}
+ <div class="col-sm-9" style="background-color: white;">
+
 
 <p>
 	<h3>
@@ -10,6 +12,7 @@
 </p>
 <br>
 
+<ul>
     {% for post in object_list %}
 	        		<p>
 	        			<h4>
@@ -22,8 +25,10 @@
 		        		</a> 
 		        		<a href="{% url "project:delete" post.pk post.slug %}">
 		        			<button type="button" class="btn btn-danger btn-sm">Delete</button>
-		        		</a>
+		        	</a>
     {% endfor %}
+</ul>
+
 
 
 {% endblock %}
