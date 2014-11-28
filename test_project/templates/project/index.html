@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<ul>
+
     {% for post in all_posts %}
         <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
          <h5>
@@ -16,7 +16,7 @@
 	         <a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
 	     </p>
     {% endfor %}
-</ul>
+
 {% endblock %}
 
 {% block sidebar %}
