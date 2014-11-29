@@ -30,6 +30,7 @@ class AboutPageView(TemplateView):
 	template_name = 'project/about.html'
 
 class BlogPostDetail(FormView):
+	# add check for if tag already exists for given post
     """ Single blog post content viewable by all users. """
     model = BlogPost
     form_class = BlogPostTagsForm
@@ -67,6 +68,7 @@ class BlogPostDetail(FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
 class BlogPostCreate(CreateView):
+	# add check for if blog post title already exists: unique error
 	""" Requires login, and saves to logged in user. """
 	form_class = BlogForm
 	template_name = 'project/blogpost_form.html'
