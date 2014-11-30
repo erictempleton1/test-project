@@ -52,13 +52,21 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
     	""" Uses url param id to query current post """
         self.blog_id = self.kwargs['id']
         self.blog_tag = form.cleaned_data['tag'].lower()
+        tag_exists = BlogPostTags.objects.filter(blog_posts__id=self.blog_id).filter(tag=self.blog_tag).exists()
 
-        """ Save to M2M using validate slug to ensure no spaces"""
-        current_blog = BlogPost.objects.get(id=self.blog_id)
-        add_tag = BlogPostTags(tag=self.blog_tag)
-        add_tag.save()
-        add_tag.blog_posts.add(current_blog)
-        return super(BlogPostDetail, self).form_valid(form)
+        if not tag_exists:
+	        """ 
+	        Checks if tag exists, then saves to M2M.
+	        Uses slug validation to ensure no spaces in tag.
+
+	        """
+	        current_blog = BlogPost.objects.get(id=self.blog_id)
+	        add_tag = BlogPostTags(tag=self.blog_tag)
+	        add_tag.save()
+	        add_tag.blog_posts.add(current_blog)
+	        return super(BlogPostDetail, self).form_valid(form)
+        else:
+            return super(BlogPostDetail, self).form_invalid(form)
 
     def get_success_url(self):
 		""" Returns user to original blog post """
