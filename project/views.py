@@ -5,6 +5,7 @@ from project.models import BlogPost, BlogPostTags, UserProfile
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
+from django.contrib import messages
 from collections import Counter
 
 class HomePageView(ListView):
@@ -68,7 +69,6 @@ class BlogPostDetail(FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
 class BlogPostCreate(CreateView):
-	# add check for if blog post title already exists: unique error
 	""" Requires login, and saves to logged in user. """
 	form_class = BlogForm
 	template_name = 'project/blogpost_form.html'

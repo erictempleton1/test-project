@@ -9,7 +9,7 @@ class BlogPost(models.Model):
     content = models.TextField()
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
     
     def save(self):
     	""" Auto saves title as slug, and user as author. """
