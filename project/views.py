@@ -80,18 +80,19 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
 class BlogPostCreate(CreateView):
-	""" Requires login, and saves to logged in user. """
-	form_class = BlogForm
-	template_name = 'project/blogpost_form.html'
-	success_url = '/'
+    """ Requires login, and saves to logged in user. """
+    form_class = BlogForm
+    template_name = 'project/blogpost_form.html'
+    success_url = '/'
 
-	def form_valid(self, form):
-		""" Attributes blog post to "user" foreignkey from models. """
-		form.instance.user = self.request.user
-		return super(BlogPostCreate, self).form_valid(form)
+    def form_valid(self, form):
+        """ Attributes blog post to "user" foreignkey from models. """
+        form.instance.user = self.request.user
+        return super(BlogPostCreate, self).form_valid(form)
 
-	def form_invalid(self, form):
-		return self.render_to_response(self.get_context_data(form=form))
+    def form_invalid(self, form):
+        messages.error(self.request, 'This field is required')
+        return self.render_to_response(self.get_context_data(form=form))
 
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """

@@ -6,13 +6,13 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class BlogForm(forms.ModelForm):
 
-	class Meta:
-		model = BlogPost
-		fields = ['title', 'content']
-		widgets = {
-		'content': SummernoteWidget(),
-		'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title',}),
-		}
+    class Meta:
+        model = BlogPost
+        fields = ['title', 'content']
+        widgets = {
+        'content': SummernoteWidget(),
+        'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title',}),
+        }
 
 class BlogPostTagsForm(forms.ModelForm):
 

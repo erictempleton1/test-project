@@ -8,8 +8,15 @@
 
 {% block content %}
 
+{% for message in messages %}
+	<div class="alert alert-info" role="alert">
+		<p>{{ message }}</p>
+	</div>
+{% endfor %}
+
 <form action="" method="post">
 	{% csrf_token %}
+
 	<p>{{ form.title }}</p>
 	<p>{{ form.content }}</p>
 
