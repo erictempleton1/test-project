@@ -1,5 +1,6 @@
 from django.views.generic import (ListView, CreateView, DetailView,
                     UpdateView, DeleteView, TemplateView, FormView)
+from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from project.models import BlogPost, BlogPostTags, UserProfile
 from django.contrib.messages.views import SuccessMessageMixin
@@ -31,8 +32,6 @@ class AboutPageView(TemplateView):
 	template_name = 'project/about.html'
 
 class BlogPostDetail(SuccessMessageMixin, FormView):
-	# add check for if tag already exists for given post
-	# add success message to template
     """ Single blog post content viewable by all users. """
     model = BlogPost
     form_class = BlogPostTagsForm
@@ -66,6 +65,8 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
 	        add_tag.blog_posts.add(current_blog)
 	        return super(BlogPostDetail, self).form_valid(form)
         else:
+            messages.error(self.request, 
+                    'The tag "{0}" already exists for this post!'.format(self.blog_tag))
             return super(BlogPostDetail, self).form_invalid(form)
 
     def get_success_url(self):
