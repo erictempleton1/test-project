@@ -6,12 +6,19 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class BlogForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        """ Override init to set required status """
+        super(BlogForm, self).__init__(*args, **kwargs)
+        self.fields['content'].required = True
+        self.fields['title'].required = True
+
     class Meta:
         model = BlogPost
         fields = ['title', 'content']
         widgets = {
         'content': SummernoteWidget(),
-        'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title',}),
+        'title': forms.TextInput(attrs={'class': 'form-control',
+                                        'placeholder': 'Title',}),
         }
 
 class BlogPostTagsForm(forms.ModelForm):
