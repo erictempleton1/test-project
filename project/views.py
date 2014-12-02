@@ -38,7 +38,7 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
     template_name = 'project/blogpost_list.html'
     success_message = 'Tag added!'
 
-
+    # move into get context as template var?
     page_hit = BlogPost.objects.get(id=13)
     page_hit.hits += 1
     page_hit.save()
