@@ -51,7 +51,9 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
     	""" Uses url param id to query current post """
         self.blog_id = self.kwargs['id']
         self.blog_tag = form.cleaned_data['tag'].lower()
-        tag_exists = BlogPostTags.objects.filter(blog_posts__id=self.blog_id).filter(tag=self.blog_tag).exists()
+        tag_exists = BlogPostTags.objects.filter(
+        	blog_posts__id=self.blog_id).filter(
+        	tag=self.blog_tag).exists()
 
         if not tag_exists:
 	        """ 
@@ -66,7 +68,7 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
 	        return super(BlogPostDetail, self).form_valid(form)
         else:
             messages.error(self.request, 
-                    'The tag "{0}" already exists for this post!'.format(self.blog_tag))
+            	'The tag "{0}" already exists for this post!'.format(self.blog_tag))
             return super(BlogPostDetail, self).form_invalid(form)
 
     def get_success_url(self):
@@ -83,7 +85,6 @@ class BlogPostCreate(CreateView):
     """ Requires login, and saves to logged in user. """
     form_class = BlogForm
     template_name = 'project/blogpost_form.html'
-    success_url = '/'
 
     def form_valid(self, form):
         """ Attributes blog post to "user" foreignkey from models. """
@@ -93,6 +94,20 @@ class BlogPostCreate(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, 'This field is required')
         return self.render_to_response(self.get_context_data(form=form))
+
+    def get_queryset(self):
+    	""" 
+    	Gets user's blog post queryset.
+    	Used with below reverse after post is created
+    	"""
+        user_set = super(BlogPostCreate, self).get_queryset()
+        return user_set.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('project:detail', kwargs={
+            'id': self.object.id,
+            'slug': self.object.slug,
+            })
 
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """
@@ -167,5 +182,6 @@ class BlogTags(ListView):
 		context = super(BlogTags, self).get_context_data(**kwargs)
 		self.tag = self.kwargs['tag']
 		context['tag'] = self.kwargs['tag']
-		context['tagged_posts'] = BlogPost.objects.filter(blogposttags__tag=str(self.tag)).order_by('-added')
+		context['tagged_posts'] = BlogPost.objects.filter(
+			blogposttags__tag=str(self.tag)).order_by('-added')
 		return context
