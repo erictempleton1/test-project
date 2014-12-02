@@ -7,17 +7,21 @@
 
 <h4>Posts by: {{ author }} </h4>	
 <ul>
-    {% for post in object_list %}
-        <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
-         <h5>
-         	Author: {{ post.author }}
-         	 | Added: {{ post.added }} | Updated: {{ post.updated }}
-         </h5>
-         <p>
-	         {{ post.content|safe|truncatechars:425 }}
-	         <a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
-	     </p>
-    {% endfor %}
+    {% if object_list %}
+        {% for post in object_list %}
+            <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h3>
+             <h5>
+             	Author: {{ post.author }}
+             	 | Added: {{ post.added }} | Updated: {{ post.updated }}
+             </h5>
+             <p>
+    	         {{ post.content|safe|truncatechars:425 }}
+    	         <a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
+    	     </p>
+        {% endfor %}
+    {% else %}
+            <h5>No posts found</h5>
+    {% endif %}
 </ul>
 
 {% endblock %}
