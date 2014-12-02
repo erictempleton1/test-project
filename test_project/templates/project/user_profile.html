@@ -16,7 +16,7 @@
     {% for post in object_list %}
 	        		<p>
 	        			<h4>
-	        				<a href="{% url "project:detail" post.pk post.slug %}">{{ post.title }}</a><br>
+	        				<a href="{% url "project:detail" post.pk post.slug %}">{{ post.title|title }}</a><br>
 	        				<h5>Added: {{ post.added }} | Updated: {{ post.updated }}</h5>
 	        			</h4>	
 	        		</p>
