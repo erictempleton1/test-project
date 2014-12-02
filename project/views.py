@@ -38,6 +38,12 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
     template_name = 'project/blogpost_list.html'
     success_message = 'Tag added!'
 
+
+    page_hit = BlogPost.objects.get(id=13)
+    page_hit.hits += 1
+    page_hit.save()
+
+
     def get_context_data(self, **kwargs):
         """ Gets post, and tags for post by id """
         context = super(BlogPostDetail, self).get_context_data(**kwargs)

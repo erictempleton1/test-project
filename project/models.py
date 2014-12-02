@@ -10,6 +10,7 @@ class BlogPost(models.Model):
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField()
+    hits = models.PositiveIntegerField(default=0)
     
     def save(self):
     	""" Auto saves title as slug, and user as author. """
