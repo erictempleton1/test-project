@@ -34,7 +34,10 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return str(self.following)
         
-        
+
+# work on hit counter for detail view
+# for reference - https://github.com/renyi/django-pageviews/blob/master/pageviews/middleware.py
+  
 """ 
 Query notes for later
 
