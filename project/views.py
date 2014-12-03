@@ -28,6 +28,7 @@ class HomePageView(ListView):
         return c.most_common()
 
 class AboutPageView(TemplateView):
+	""" Basic About page """
 	model = BlogPost
 	template_name = 'project/about.html'
 
@@ -44,7 +45,6 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         self.id = self.kwargs['id']
         context['blog_post'] = BlogPost.objects.get(id=self.id)
         context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
-        #context['current_user'] = str(self.request.user)
 
         """
         context['blog_post'].hits += 1
