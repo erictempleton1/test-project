@@ -46,10 +46,10 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         context['blog_post'] = BlogPost.objects.get(id=self.id)
         context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
 
-        """
+        # works for now, but makes more queries than preferred
+        # need to revisit later
         context['blog_post'].hits += 1
-        context['save_hit'] = context['blog_post'].save()
-        """
+        context['blog_post'].save()
         return context
 
     def form_valid(self, form):

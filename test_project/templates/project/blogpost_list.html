@@ -1,7 +1,6 @@
 {% extends "project/base.html" %}
 
 {% block content %}
-{{ save_hit }}
 
 <h1>{{ blog_post.title|title }}</h1>
 <h5>Author: <a href="{% url 'project:profile_detail' blog_post.author %}">{{ blog_post.author }}</a> | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
