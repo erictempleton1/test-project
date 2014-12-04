@@ -25,6 +25,16 @@
 {% block sidebar %}
 
       <div class="col-sm-3" style="background-color: orange;">
+        <h5>All-Time Popular Posts:</h5>
+        {% with posts=all_posts|dictsortreversed:"hits"|slice:":5" %}
+          {% for post in posts %}
+            <p>
+              <a href="{% url 'project:detail' post.pk post.slug %}">
+              {{ post.title|title }}</a> ({{ post.hits }})
+            </p>
+          {% endfor %}
+        {% endwith %}
+
       	<h5>Popular Tags:</h5>
       	{% for tag, count in tag_count %}
       	<a href="{% url "project:tagged_posts" tag %}">
