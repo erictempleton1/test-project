@@ -25,12 +25,15 @@
 {% block sidebar %}
 
       <div class="col-sm-3" style="background-color: none;">
-        <h5>All-Time Popular Posts:</h5>
+        <h5>Popular Posts:</h5>
         {% with posts=all_posts|dictsortreversed:"hits"|slice:":5" %}
           {% for post in posts %}
             <p>
               <a href="{% url 'project:detail' post.pk post.slug %}">
-              {{ post.title|title }}</a> ({{ post.hits }})
+              {{ post.title|title }}</a> ({{ post.hits }})<br>
+              <span class="sidebar-author">
+                <a href="{% url 'project:profile_detail' post.author %}">{{ post.author }}</a>
+              </span>
             </p>
           {% endfor %}
         {% endwith %}
