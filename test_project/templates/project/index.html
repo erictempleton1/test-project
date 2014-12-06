@@ -24,6 +24,8 @@
 
 {% block sidebar %}
 
+      <p>{% now "D" %}
+
       <div class="col-sm-3" style="background-color: none;">
         <h5>Popular Posts:</h5>
         {% with posts=all_posts|dictsortreversed:"hits"|slice:":5" %}
