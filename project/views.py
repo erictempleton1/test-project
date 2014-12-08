@@ -13,6 +13,8 @@ class HomePageView(ListView):
     """ Lists all blog posts for every user. """
     model = BlogPost
     template_name = 'project/index.html'
+    context_object_name = 'all_posts'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         """ Returns all posts sorted by most recent """
