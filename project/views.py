@@ -17,14 +17,15 @@ class HomePageView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        """ All posts returned by date added """
+        """ All posts sorted by date added """
         all_posts = super(HomePageView, self).get_queryset()
         return all_posts.order_by('-added')
 
     def get_context_data(self, **kwargs):
-        """ Returns all posts sorted by most recent """
+        """ Returns all tags, and used item_count to sort by popular """
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['tag_count'] = self.item_count(BlogPostTags.objects.all())
+        get_tags = BlogPostTags.objects.all()
+        context['tag_count'] = self.item_count(get_tags)
         return context
 
     def item_count(self, tags):

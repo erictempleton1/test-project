@@ -20,11 +20,10 @@
     {% endfor %}
 </ul>
 
+
 {% endblock %}
 
 {% block sidebar %}
-
-      <p>{% now "D" %}
 
       <div class="col-sm-3" style="background-color: none;">
         <h5>Popular Posts:</h5>
@@ -46,10 +45,10 @@
 		 	<button type="button" class="btn btn-default btn-sm">
 		 		{{ tag }} ({{ count }})
 		 	</button>
-	 	</a>
+	 	    </a>
       	{% endfor %}
 
 
-      </div>
+    </div>
 
 {% endblock %}
