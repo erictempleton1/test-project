@@ -14,7 +14,7 @@ class HomePageView(ListView):
     model = BlogPost
     template_name = 'project/index.html'
     context_object_name = 'all_posts'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         """ All posts returned by date added """

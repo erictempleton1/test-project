@@ -41,7 +41,7 @@
         {% endwith %}
 
       	<h5>Popular Tags:</h5>
-      	{% for tag, count in tag_count %}
+      	{% for tag, count in tag_count|slice:"8" %}
       	<a href="{% url "project:tagged_posts" tag %}">
 		 	<button type="button" class="btn btn-default btn-sm">
 		 		{{ tag }} ({{ count }})
