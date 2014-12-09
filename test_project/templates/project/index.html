@@ -20,18 +20,6 @@
     {% endfor %}
 </ul>
 
-<ul>
-  {% if is_paginated %}
-    {% if page_obj.has_previous %}
-      <a href="/?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
-    {% if page_obj.has_next %}
-      <a href="/?page={{ page_obj.next_page_number }}">Next</a>
-    {% endif %}
-    ({{ page_obj.number }} of {{ page_obj.paginator.num_pages }})
-  {% endif %}
-</ul>
-
 {% endblock %}
 
 {% block sidebar %}

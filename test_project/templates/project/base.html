@@ -75,6 +75,20 @@
         <div class="col-sm-9" style="background-color: white;">
       {% endblock %}
 
+{% if is_paginated %}
+<nav>
+  <ul class="pager">
+  {% if page_obj.has_previous %}
+    <li><a href="/?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&larr;</span> Previous</a></li>
+  {% endif %}
+  {% if page_obj.has_next %}
+    <li><a href="/?page={{ page_obj.next_page_number }}">Next <span aria-hidden="true">&rarr;</span></a></li>
+  {% endif %}
+  ({{ page_obj.number }} of {{ page_obj.paginator.num_pages }})
+  </ul>
+</nav>
+{% endif %}
+
         </div>
 
       {% block sidebar %}{% endblock %}
