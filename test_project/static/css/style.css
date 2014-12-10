@@ -1,6 +1,6 @@
 /* main navbar background color and opacity */
 .navbar-default {
-	background: rgba(61,89,171,0.9);
+	background: rgba(61,89,171,1);
 }
 
 /* toggled navbar "sandwich" lines color */
@@ -30,7 +30,7 @@ border-color: #F5F5F5;
 
 .sidebar-author a:hover, a:focus {
     color: #282828;
-    text-decoration; none;
+    text-decoration: none;
 }
 
 
