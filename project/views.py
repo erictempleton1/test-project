@@ -3,10 +3,10 @@ from django.views.generic import (ListView, CreateView, DetailView,
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from project.models import BlogPost, BlogPostTags, UserProfile
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
+from django.contrib.messages.views import SuccessMessageMixin
 from collections import Counter
 
 class HomePageView(ListView):
