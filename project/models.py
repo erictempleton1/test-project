@@ -33,7 +33,7 @@ class UserProfile(models.Model):
     following = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
     
     def __unicode__(self):
-        return str(self.following)
+        return self.following
         
 
 # work on hit counter for detail view
