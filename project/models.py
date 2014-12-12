@@ -29,11 +29,11 @@ class BlogPostTags(models.Model):
         return self.tag
         
 class UserProfile(models.Model):
-    user = models.ForeignKey(User)
-    following = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+    user = models.OneToOneField(User)
+    following = models.ManyToManyField('self', related_name='followers', symmetrical=False)
     
     def __unicode__(self):
-        return self.following
+        return self.user.username
         
 
 # work on hit counter for detail view
@@ -42,13 +42,29 @@ class UserProfile(models.Model):
 """ 
 Query notes for later
 
-In [5]: user_to_follow = User.objects.get(username='erictempleton')
+# get user object
+In [8]: eric = User.objects.get(username='eric')
 
-In [6]: f = UserProfile(user=eric)
+# add user object to onetoone field
+In [9]: me = UserProfile.objects.create(user=eric)
 
-In [7]: f.save()
+# get to follow object
+In [10]: bill = User.objects.get(username='bill')
 
-In [8]: f.following.add(user_to_follow.id)
+# add follow object to onetoone field
+In [12]: bill = UserProfile.objects.create(user=bill)
+
+# add follow object 
+In [13]: me.following.add(bill)
+
+# get user object
+In [10]: eric = User.objects.get(username='eric')
+
+# query UserProfile by object
+In [11]: myprofile = get_object_or_404(UserProfile, user = eric)
+
+# return followers
+myprofile.following.all()
 
 """
 
