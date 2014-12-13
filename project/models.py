@@ -46,13 +46,13 @@ Query notes for later
 In [8]: eric = User.objects.get(username='eric')
 
 # add user object to onetoone field
-In [9]: me = UserProfile.objects.create(user=eric)
+In [9]: me = UserProfile.objects.get_or_create(user=eric)
 
 # get to follow object
 In [10]: bill = User.objects.get(username='bill')
 
 # add follow object to onetoone field
-In [12]: bill_add = UserProfile.objects.create(user=bill)
+In [12]: bill_add = UserProfile.objects.get_or_create(user=bill)
 
 # add follow object 
 In [13]: me.following.add(bill)
