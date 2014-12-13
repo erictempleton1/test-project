@@ -42,29 +42,32 @@ class UserProfile(models.Model):
 """ 
 Query notes for later
 
-# get user object
-In [8]: eric = User.objects.get(username='eric')
+n [1]: from django.shortcuts import get_object_or_404
 
-# add user object to onetoone field
-In [9]: me = UserProfile.objects.get_or_create(user=eric)
+In [2]: from django.contrib.auth.models import User
 
-# get to follow object
-In [10]: bill = User.objects.get(username='bill')
+In [3]: from project.models import BlogPost, BlogPostTags, UserProfile
 
-# add follow object to onetoone field
-In [12]: bill_add = UserProfile.objects.get_or_create(user=bill)
+In [4]: eric = User.objects.get(username='eric')
 
-# add follow object 
-In [13]: me.following.add(bill)
+In [5]: me, me_created = UserProfile.objects.get_or_create(user=eric)
 
-# get user object
-In [10]: eric = User.objects.get(username='eric')
+In [6]: me
+Out[6]: <UserProfile: eric>
 
-# query UserProfile by object
-In [11]: myprofile = get_object_or_404(UserProfile, user = eric)
+In [7]: bill = User.objects.get(username='bill')
 
-# return followers
-myprofile.following.all()
+In [8]: add_bill, follow_created = UserProfile.objects.get_or_create(user=bill)
+
+In [9]: add_bill
+Out[9]: <UserProfile: bill>
+
+In [10]: me.following.add(add_bill)
+
+In [11]: myprofile = get_object_or_404(UserProfile, user=eric)
+
+In [12]: myprofile.following.all()
+Out[12]: [<UserProfile: bill>]
 
 """
 
