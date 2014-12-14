@@ -7,8 +7,8 @@
 <ul>
     <h4>Posts by: {{ author }} </h4>	
     
-        {% if object_list %}
-            {% for post in object_list %}
+        {% if author_posts %}
+            {% for post in author_posts %}
                 <h3><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title|title }}</a></h3>
                  <h5>
                  	Author: {{ post.author }}

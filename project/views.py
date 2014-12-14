@@ -150,20 +150,15 @@ class BlogPostDelete(DeleteView):
 		return user_set.filter(user=self.request.user)
 
 class ProfileBlog(ListView):
-	""" Lists all posts by specific user """
-	model = BlogPost
-	template_name = 'project/profile_blog.html'
+    """ Lists all posts by specific user """
+    model = BlogPost
+    template_name = 'project/profile_blog.html'
 
-	def get_queryset(self):
-		""" Queries based on url param """
-		self.author = self.kwargs['author']
-		profile_posts = super(ProfileBlog, self).get_queryset()
-		return profile_posts.filter(author=self.author).order_by('-added')
-
-	def get_context_data(self, **kwargs):
-		context = super(ProfileBlog, self).get_context_data(**kwargs)
-		context['author'] = self.kwargs['author']
-		return context
+    def get_context_data(self, **kwargs):
+        context = super(ProfileBlog, self).get_context_data(**kwargs)
+        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
+        context['author'] = self.kwargs['author']
+        return context
 
 class UserDashboard(ListView):
     """ Dashboard where a user can view/edit/delete their posts """
@@ -197,3 +192,7 @@ class BlogTags(ListView):
 		context['tagged_posts'] = BlogPost.objects.filter(
 			blogposttags__tag=str(self.tag)).order_by('-added')
 		return context
+
+# notes:
+# - move follow user into profileblog view
+# - make profileblog a formview
