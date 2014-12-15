@@ -1,6 +1,8 @@
 from django.views.generic import (ListView, CreateView, DetailView,
-                    UpdateView, DeleteView, TemplateView, FormView)
+                    UpdateView, DeleteView, TemplateView, FormView,
+                    View)
 from django.contrib import messages
+from django.shortcuts import redirect
 from django.views.generic.edit import FormMixin
 from project.models import BlogPost, BlogPostTags, UserProfile
 from django.contrib.auth.models import User
@@ -121,6 +123,22 @@ class BlogPostCreate(CreateView):
             'slug': self.object.slug,
             })
 
+class ProfileBlog(ListView):
+    """ Lists all posts by specific user """
+    model = BlogPost
+    template_name = 'project/profile_blog.html'
+
+    def get_success_url(self):
+        return reverse('project:profile_details', kwargs={
+            'author': self.object.author,
+            })
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileBlog, self).get_context_data(**kwargs)
+        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
+        context['author'] = self.kwargs['author']
+        return context
+
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """
 	model = BlogPost
@@ -148,17 +166,6 @@ class BlogPostDelete(DeleteView):
 	def get_queryset(self):
 		user_set = super(BlogPostDelete, self).get_queryset()
 		return user_set.filter(user=self.request.user)
-
-class ProfileBlog(ListView):
-    """ Lists all posts by specific user """
-    model = BlogPost
-    template_name = 'project/profile_blog.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileBlog, self).get_context_data(**kwargs)
-        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
-        context['author'] = self.kwargs['author']
-        return context
 
 class UserDashboard(ListView):
     """ Dashboard where a user can view/edit/delete their posts """
@@ -192,6 +199,12 @@ class BlogTags(ListView):
 		context['tagged_posts'] = BlogPost.objects.filter(
 			blogposttags__tag=str(self.tag)).order_by('-added')
 		return context
+
+class FollowUser(View):
+    model = UserProfile
+
+    def get(self, request, author):
+        return redirect('/')
 
 # notes:
 # - move follow user into profileblog view
