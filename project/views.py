@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import get_list_or_404
 from collections import Counter
 
 class HomePageView(ListView):
@@ -135,7 +136,7 @@ class ProfileBlog(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
-        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
+        context['author_posts'] = get_list_or_404(BlogPost, author=self.kwargs['author'])
         context['author'] = self.kwargs['author']
         return context
 
@@ -204,6 +205,10 @@ class FollowUser(View):
     model = UserProfile
 
     def get(self, request, author):
+        me, me_created = UserProfile.objects.get_or_create(user=request.user)
+        user_follow = User.objects.get(username=str(author))
+        add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
+        me.following.add(add_user)
         return redirect('/')
 
 # notes:
