@@ -215,11 +215,14 @@ class FollowUser(View):
 
         # exist check, and check to not follow self
         if follow_exists or request.user.username == author:
-            return redirect('/about')
+            return redirect('/{}'.format(author))
         else:
             add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
             me.following.add(add_user)
             return redirect('/')
+
+class UnfollowUser(view):
+    model = UserProfile
 
 # notes:
 #
