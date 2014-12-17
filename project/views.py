@@ -214,9 +214,15 @@ class FollowUser(View):
         follow_exists = me.following.filter(user=user_follow).exists()
 
         # exist check, and check to not follow self
-        if follow_existis or request.user.username == author:
+        if follow_exists or request.user.username == author:
             return redirect('/about')
         else:
             add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
             me.following.add(add_user)
             return redirect('/')
+
+# notes:
+#
+# clean up followuser view
+# add unfollow view
+# pass follow lists to template
