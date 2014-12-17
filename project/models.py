@@ -69,5 +69,8 @@ In [11]: myprofile = get_object_or_404(UserProfile, user=eric)
 In [12]: myprofile.following.all()
 Out[12]: [<UserProfile: bill>]
 
+In [10]: myprofile.following.filter(user=bill).exists()
+Out[10]: True
+
 """
 

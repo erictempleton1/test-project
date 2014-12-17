@@ -206,7 +206,7 @@ class FollowUser(View):
 
     def get(self, request, author):
         me, me_created = UserProfile.objects.get_or_create(user=request.user)
-        user_follow = User.objects.get(username=str(author))
+        user_follow = get_object_or_404(User, username=str(author))
         add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
         me.following.add(add_user)
         return redirect('/')
