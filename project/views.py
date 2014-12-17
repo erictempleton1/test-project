@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_list_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 from collections import Counter
 
 class HomePageView(ListView):
@@ -205,12 +205,18 @@ class FollowUser(View):
     model = UserProfile
 
     def get(self, request, author):
+
+        # get user and author objects
         me, me_created = UserProfile.objects.get_or_create(user=request.user)
         user_follow = get_object_or_404(User, username=str(author))
-        add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
-        me.following.add(add_user)
-        return redirect('/')
 
-# notes:
-# - move follow user into profileblog view
-# - make profileblog a formview
+        # check if user is already following the author
+        follow_exists = me.following.filter(user=user_follow).exists()
+
+        # exist check, and check to not follow self
+        if follow_existis or request.user.username == author:
+            return redirect('/about')
+        else:
+            add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
+            me.following.add(add_user)
+            return redirect('/')
