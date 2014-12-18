@@ -14,6 +14,6 @@ urlpatterns = patterns('',
     url(r'tag/(?P<tag>[\w-]+)/$', BlogTags.as_view(), name='tagged_posts'),
     url(r'dashboard/$', login_required(UserDashboard.as_view()), name='user_dashboard'),
     url(r'^(?P<author>[\w-]+)/$', ProfileBlog.as_view(), name='profile_detail'),
-    url(r'^(?P<author>[\w-]+)/follow$', FollowUser.as_view(), name='follow_user'),
-    url(r'^(?P<author>[\w-]+)/unfollow$', UnfollowUser.as_view(), name='unfollow_user'),
+    url(r'^(?P<author>[\w-]+)/follow$', login_required(FollowUser.as_view()), name='follow_user'),
+    url(r'^(?P<author>[\w-]+)/unfollow$', login_required(UnfollowUser.as_view()), name='unfollow_user'),
 )

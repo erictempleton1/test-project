@@ -138,6 +138,14 @@ class ProfileBlog(ListView):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
         context['author_posts'] = get_list_or_404(BlogPost, author=self.kwargs['author'])
         context['author'] = self.kwargs['author']
+
+        # get or user and author objects
+        me = get_object_or_404(UserProfile, user=self.request.user)
+        user_follow = get_object_or_404(User, username=self.kwargs['author'])
+
+        # check if user is already following the author
+        context['follow_exists'] = me.following.filter(user=user_follow).exists()
+        all_following = me.following.all()
         return context
 
 class BlogPostUpdate(UpdateView):
@@ -223,7 +231,7 @@ class FollowUser(View):
         else:
             add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
             me.following.add(add_user)
-            return redirect('/')
+            return redirect('/{}'.format(author))
 
 class UnfollowUser(View):
     """
@@ -244,7 +252,7 @@ class UnfollowUser(View):
             me.following.remove(remove_user)
             return redirect('/{}'.format(author))
         else:
-            return redirect('/')
+            return redirect('/{}'.format(author))
 
 # notes:
 #
