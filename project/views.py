@@ -202,18 +202,22 @@ class BlogTags(ListView):
 		return context
 
 class FollowUser(View):
+    """ 
+    Follow a specific user, and not yourself
+    get_or_create returns a tuple with true or false
+    """
     model = UserProfile
 
     def get(self, request, author):
 
-        # get user and author objects
+        # get or create user and author objects
         me, me_created = UserProfile.objects.get_or_create(user=request.user)
         user_follow = get_object_or_404(User, username=str(author))
 
         # check if user is already following the author
         follow_exists = me.following.filter(user=user_follow).exists()
 
-        # exist check, and check to not follow self
+        # exists check, and check to not follow self
         if follow_exists or request.user.username == author:
             return redirect('/{}'.format(author))
         else:
@@ -221,11 +225,28 @@ class FollowUser(View):
             me.following.add(add_user)
             return redirect('/')
 
-class UnfollowUser(view):
+class UnfollowUser(View):
+    """
+    Unfollow a user, similar approach to FollowUser.
+    Uses get_object_or_404 instead of get_or_create so extra instances aren't created.
+    """
     model = UserProfile
+
+    def get(self, request, author):
+
+        me = get_object_or_404(UserProfile, user=request.user)
+        user_follow = get_object_or_404(User, username=str(author))
+
+        follow_exists = me.following.filter(user=user_follow).exists()
+
+        if follow_exists and request.user.username != author:
+            remove_user = get_object_or_404(UserProfile, user=user_follow)
+            me.following.remove(remove_user)
+            return redirect('/{}'.format(author))
+        else:
+            return redirect('/')
 
 # notes:
 #
 # clean up followuser view
-# add unfollow view
 # pass follow lists to template
