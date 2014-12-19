@@ -138,21 +138,24 @@ class ProfileBlog(ListView):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
         context['author_posts'] = get_list_or_404(BlogPost, author=self.kwargs['author'])
         context['author'] = self.kwargs['author']
-
+        
         # get or user and author objects
-        me = get_object_or_404(UserProfile, user=self.request.user)
         user_follow = get_object_or_404(User, username=self.kwargs['author'])
-
-        # check if user is already following the author
-        context['follow_exists'] = me.following.filter(user=user_follow).exists()
-
+        
         # return following/follower count
         user_follows = get_object_or_404(UserProfile, user=user_follow)
         context['all_following'] = user_follows.following.all()
         context['all_followers'] = user_follows.followers.all()
 
-        # m = get_object_or_404(UserProfile, user__username='eric')
+
+        if self.request.user.is_authenticated:
+            me = get_object_or_404(UserProfile, user=self.request.user)
+
+            # check if user is already following the author
+            context['follow_exists'] = me.following.filter(user=user_follow).exists()
+            
         return context
+
 
 class BlogPostUpdate(UpdateView):
 	""" Requires login, and only post author can edit. """
@@ -264,3 +267,4 @@ class UnfollowUser(View):
 #
 # clean up followuser view
 # pass follow lists to template
+# m = get_object_or_404(UserProfile, user__username='eric')
