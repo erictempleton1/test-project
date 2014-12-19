@@ -145,7 +145,10 @@ class ProfileBlog(ListView):
 
         # check if user is already following the author
         context['follow_exists'] = me.following.filter(user=user_follow).exists()
-        all_following = me.following.all()
+
+        # return following/follower count
+        user_follows = get_object_or_404(UserProfile, user=user_follow)
+        context['all_following'] = user_follows.following.all()
         return context
 
 class BlogPostUpdate(UpdateView):

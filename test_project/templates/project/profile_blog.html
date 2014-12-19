@@ -6,7 +6,7 @@
 
 <ul>
     <h4>
-        Posts by: {{ author }} 
+        {{ author }} 
 
       {% if user.username != author %}
         {% if follow_exists %}
@@ -20,6 +20,7 @@
         {% endif %}
       {% endif %}
     </h4>
+    <h5>Posts: {{ author_posts|length }}    Following: {{ all_following|length }}</h5>
     
         {% if author_posts %}
             {% for post in author_posts %}
