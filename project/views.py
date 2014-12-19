@@ -149,6 +149,9 @@ class ProfileBlog(ListView):
         # return following/follower count
         user_follows = get_object_or_404(UserProfile, user=user_follow)
         context['all_following'] = user_follows.following.all()
+        context['all_followers'] = user_follows.followers.all()
+
+        # m = get_object_or_404(UserProfile, user__username='eric')
         return context
 
 class BlogPostUpdate(UpdateView):

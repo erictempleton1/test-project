@@ -20,7 +20,17 @@
         {% endif %}
       {% endif %}
     </h4>
-    <h5>Posts: {{ author_posts|length }}    Following: {{ all_following|length }}</h5>
+
+        <h5>
+            Posts: {{ author_posts|length }}
+        </h5>
+        <h5>
+            Following: {{ all_following|length }}
+        </h5>
+        <h5> 
+            Followers: {{ all_followers|length }}
+        </h5>
+
     
         {% if author_posts %}
             {% for post in author_posts %}

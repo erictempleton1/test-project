@@ -33,7 +33,6 @@ border-color: #F5F5F5;
     text-decoration: none;
 }
 
-
 body {
 	font-family: Ubuntu,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color: #282828;
@@ -74,4 +73,8 @@ a:hover, a:focus {
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #DCDCDC;
     background-color: #3D59AB;
+}
+
+.user-profile-stats {
+    text-align: center;
 }
