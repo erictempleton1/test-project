@@ -147,13 +147,15 @@ class ProfileBlog(ListView):
         context['all_following'] = user_follows.following.all()
         context['all_followers'] = user_follows.followers.all()
 
-
-        if self.request.user.is_authenticated:
-            me = get_object_or_404(UserProfile, user=self.request.user)
-
+        try:
             # check if user is already following the author
+            me = get_object_or_404(UserProfile, user=self.request.user)
             context['follow_exists'] = me.following.filter(user=user_follow).exists()
-            
+        except TypeError:
+            # users not logged in raise TypeError
+            # self.request.user does not exist for users not logged in
+            context['follow_exists'] = None
+
         return context
 
 

@@ -9,5 +9,5 @@ class ViewTest(TestCase):
 		self.client = Client()
 
 	def test_profile_page(self):
-		response = self.client.get('eric/dashboard/')
+		response = self.client.get('/eric/')
 		self.assertEquals(response.status_code, 200)
