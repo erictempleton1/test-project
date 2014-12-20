@@ -3,7 +3,10 @@ from django.test import TestCase, Client
 from project.models import BlogPost, UserProfile
 from project.views import BlogPostCreate, HomePageView, BlogPostDetail, BlogPostUpdate, BlogPostDelete, ProfileBlog, UserProfile
 
+
 class ViewTest(TestCase):
+
+	fixtures = ['test_data.json']
 
 	def SetUp(self):
 		self.client = Client()

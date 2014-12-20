@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
 
+test_data.json
+
 static/images/
 
 migrations/
