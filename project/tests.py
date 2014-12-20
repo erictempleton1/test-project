@@ -6,8 +6,6 @@ from project.views import BlogPostCreate, HomePageView, BlogPostDetail, BlogPost
 
 class ViewTest(TestCase):
 
-	fixtures = ['test_data.json']
-
 	def SetUp(self):
 		self.client = Client()
 
