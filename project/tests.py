@@ -10,11 +10,11 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 
 from selenium import webdriver
 
+fixtures = ['user_data.json', 'post_data.json',
+                'tag_data.json', 'user_profile.json']
+
 
 class ProfilePageTest(LiveServerTestCase):
-
-    fixtures = ['user_data.json', 'post_data.json',
-                'tag_data.json', 'user_profile.json']
    
     def setUp(self):
     	self.driver = webdriver.Firefox()
@@ -119,3 +119,34 @@ class ProfilePageTest(LiveServerTestCase):
     def tearDown(self):
     	self.driver.quit()
 
+class ListFollowPageTest(LiveServerTestCase):
+   
+    def setUp(self):
+    	self.driver = webdriver.Firefox()
+        self.client = Client()
+
+    def login_example_user(self):
+    	""" Log in when needed """
+    	driver = self.driver
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/accounts/login/')
+    		)
+
+    	# log in as example user
+    	self.driver.find_element_by_id('id_username').send_keys(
+    		settings.EXAMPLE_USERNAME)
+    	self.driver.find_element_by_id('id_password').send_keys(
+    		settings.EXAMPLE_PASSWORD)
+
+    	# click login button
+    	self.driver.find_element_by_xpath(
+    		'/html/body/div[2]/div/div/form/input[2]').click()
+
+    def test_page_load(self):
+    	""" Simple check that page loads """
+    	c = Client()
+    	response = c.get('/eric/followers/')
+    	self.assertEqual(response.status_code, 200)
+
+    def tearDown(self):
+    	self.driver.quit()

@@ -1,16 +1,15 @@
-from django.views.generic import (ListView, CreateView, DetailView,
-                    UpdateView, DeleteView, TemplateView, FormView,
-                    View)
+from collections import Counter
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.views.generic.edit import FormMixin
-from project.models import BlogPost, BlogPostTags, UserProfile
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from project.forms import BlogForm, BlogPostTagsForm
 from django.contrib.messages.views import SuccessMessageMixin
+from project.models import BlogPost, BlogPostTags, UserProfile
 from django.shortcuts import get_list_or_404, get_object_or_404
-from collections import Counter
+from django.views.generic import (ListView, CreateView, DetailView,
+                    UpdateView, DeleteView, TemplateView, FormView,
+                    View)
 
 class HomePageView(ListView):
     """ Lists all blog posts for every user. """
@@ -219,6 +218,36 @@ class BlogTags(ListView):
 		context['tagged_posts'] = BlogPost.objects.filter(
 			blogposttags__tag=str(self.tag)).order_by('-added')
 		return context
+
+class UserFollowers(ListView):
+    model = UserProfile
+    template_name = 'project/user_followers.html'
+
+    def get_context_data(self, **kwargs):
+
+       context = super(UserFollowers, self).get_context_data(**kwargs)
+       context['author'] = self.kwargs['author']
+
+       # get author object
+       user_follow = get_object_or_404(User, username=self.kwargs['author'])
+
+       # return author's followers
+       user_follows = get_object_or_404(UserProfile, user=user_follow)
+       context['all_followers'] = user_follows.followers.all()
+
+       # work on code that iterates over followers and checks if auth'd
+       # user already follows them
+       # possibly split into two seperate lists
+       try:
+           # check if user is already following the author
+           me = get_object_or_404(UserProfile, user=self.request.user)
+           follow_exists = me.following.filter(user=user_follow).exists()
+       except TypeError:
+           # users not logged in raise TypeError
+           # self.request.user does not exist for users not logged in
+           context['follow_exists'] = None
+
+       return context
 
 class FollowUser(View):
     """ 

@@ -1,0 +1,18 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<div class="col-sm-9" style="background-color: white;">
+
+<ul>
+	<h4>
+		{{ author }} | Followers
+	</h4>
+
+        {% for person in all_followers %}
+			<p>
+				{{ person }}
+			</p>
+		{% endfor %}	
+
+{% endblock %}
