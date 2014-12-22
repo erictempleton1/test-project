@@ -1,5 +1,6 @@
 from django.test import TestCase, LiveServerTestCase
 from django.test import TestCase, Client
+from django.conf import settings
 from project.models import BlogPost, BlogPostTags, UserProfile
 from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
@@ -17,15 +18,33 @@ class ProfilePageTest(LiveServerTestCase):
     	self.driver = webdriver.Firefox()
         self.client = Client()
 
+    def login_example_user(self):
+    	""" Log in when needed """
+    	driver = self.driver
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/accounts/login/')
+    		)
+
+    	# log in as example user
+    	self.driver.find_element_by_id('id_username').send_keys(
+    		settings.EXAMPLE_USERNAME)
+    	self.driver.find_element_by_id('id_password').send_keys(
+    		settings.EXAMPLE_PASSWORD)
+
+    	# click login button
+    	self.driver.find_element_by_xpath(
+    		'/html/body/div[2]/div/div/form/input[2]').click()
+
     def test_follow(self):
     	"""
-    	Tests follow button on user profile page.
-    	User directed to login page if follow button is clicked,
-    	and they are not already logged in.
+    	Test that user is taken to login page if they
+    	click follow and they are not logged in.
     	"""
     	driver = self.driver
+
+        # view a user's page when not logged in
         self.driver.get(
-            '{0}{1}'.format(self.live_server_url, '/eric/')
+            '{0}{1}'.format(self.live_server_url, '/bill/')
             )
 
         # click follow button
@@ -35,19 +54,19 @@ class ProfilePageTest(LiveServerTestCase):
         # check that un-authd user is taken to login page on follow click
         self.assertIn('Username', self.driver.page_source)
 
-    def test_follow_loggedin(self):
+    def test_follow_self(self):
+    	"""
+    	Test to be sure follow button is hidden for if user views own profile.
+    	"""
     	driver = self.driver
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/login/')
-    		)
-    	
-    	# log in as example user
-    	self.driver.find_element_by_id('id_username').send_keys('eric')
-    	self.driver.find_element_by_id('id_password').send_keys('eric')
-    	self.driver.find_element_by_xpath(
-    		'/html/body/div[2]/div/div/form/input[2]').click()
+    	self.login_example_user()
 
-        self.assertIn('Logout', self.driver.page_source)
+        self.driver.get(
+        	'{0}{1}'.format(self.live_server_url, '/eric/')
+        	)
+
+        # 'pull-right' only exists when follow/unfollow button is shown
+        self.assertNotIn('pull-right', self.driver.page_source)
 
     def tearDown(self):
     	self.driver.quit()
