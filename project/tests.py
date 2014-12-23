@@ -14,7 +14,7 @@ fixtures = ['user_data.json', 'post_data.json',
                 'tag_data.json', 'user_profile.json']
 
 
-class ProfilePageTest(LiveServerTestCase):
+class ProfileFollowButtonTest(LiveServerTestCase):
    
     def setUp(self):
     	self.driver = webdriver.Firefox()
@@ -24,8 +24,7 @@ class ProfilePageTest(LiveServerTestCase):
     	""" Log in when needed """
     	driver = self.driver
     	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/login/')
-    		)
+    		'{0}{1}'.format(self.live_server_url, '/accounts/login/'))
 
     	# log in as example user
     	self.driver.find_element_by_id('id_username').send_keys(
@@ -37,7 +36,7 @@ class ProfilePageTest(LiveServerTestCase):
     	self.driver.find_element_by_xpath(
     		'/html/body/div[2]/div/div/form/input[2]').click()
 
-    def test_follow(self):
+    def test_follow_button_unauthd(self):
     	"""
     	Test that user is taken to login page if they
     	click follow and they are not logged in.
@@ -46,8 +45,7 @@ class ProfilePageTest(LiveServerTestCase):
 
         # view a user's page when not logged in
         self.driver.get(
-            '{0}{1}'.format(self.live_server_url, '/bill/')
-            )
+            '{0}{1}'.format(self.live_server_url, '/bill/'))
 
         # click follow button
         self.driver.find_element_by_xpath(
@@ -56,16 +54,16 @@ class ProfilePageTest(LiveServerTestCase):
         # check that un-authd user is taken to login page on follow click
         self.assertIn('Username', self.driver.page_source)
 
-    def test_follow_self(self):
+    def test_follow_button_self(self):
     	"""
-    	Test to be sure follow button is hidden if user views own profile.
+    	Test to that follow button is hidden
+    	if a user views their own profile.
     	"""
     	driver = self.driver
     	self.login_example_user()
 
         self.driver.get(
-        	'{0}{1}'.format(self.live_server_url, '/eric/')
-        	)
+        	'{0}{1}'.format(self.live_server_url, '/eric/'))
 
         # 'pull-right' only exists when follow/unfollow button is shown
         self.assertNotIn('pull-right', self.driver.page_source)
@@ -81,16 +79,14 @@ class ProfilePageTest(LiveServerTestCase):
         follow_exists = me.following.filter(user=user_follow).exists()
         return follow_exists
 
-
-    def test_follow_add(self):
-        """ Test click to be sure that 'Follow' adds user """
+    def test_follow_button_add(self):
+        """ Test that clicking 'Follow' adds user """
     	driver = self.driver
     	self.login_example_user()
 
         # visit other user's profile page
     	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/')
-    		)
+    		'{0}{1}'.format(self.live_server_url, '/bill'))
 
         # once follow is clicked, exists() is True
         self.driver.find_element_by_xpath(
@@ -98,13 +94,16 @@ class ProfilePageTest(LiveServerTestCase):
 
         self.assertEqual(self.follow_exists(), True)
 
-    def test_follow_remove(self):
+    def test_follow_button_remove(self):
+        """ 
+        Test click once to add, and again to unfollow.
+        Uses exists() query to check db
+        """
     	driver = self.driver
     	self.login_example_user()
 
     	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/')
-    		)
+    		'{0}{1}'.format(self.live_server_url, '/bill/'))
 
         # click once to follow
     	self.driver.find_element_by_xpath(
@@ -129,16 +128,13 @@ class ListFollowPageTest(LiveServerTestCase):
     	""" Log in when needed """
     	driver = self.driver
     	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/login/')
-    		)
+    		'{0}{1}'.format(self.live_server_url, '/accounts/login/'))
 
-    	# log in as example user
     	self.driver.find_element_by_id('id_username').send_keys(
     		settings.EXAMPLE_USERNAME)
     	self.driver.find_element_by_id('id_password').send_keys(
     		settings.EXAMPLE_PASSWORD)
 
-    	# click login button
     	self.driver.find_element_by_xpath(
     		'/html/body/div[2]/div/div/form/input[2]').click()
 

@@ -233,7 +233,7 @@ class UserFollowers(ListView):
 
        # return author's followers
        user_follows = get_object_or_404(UserProfile, user=user_follow)
-       context['all_followers'] = user_follows.followers.all()
+       all_followers = user_follows.followers.all()
 
        # work on code that iterates over followers and checks if auth'd
        # user already follows them
@@ -245,7 +245,7 @@ class UserFollowers(ListView):
        except TypeError:
            # users not logged in raise TypeError
            # self.request.user does not exist for users not logged in
-           context['follow_exists'] = None
+           context['all_followers'] = all_followers
 
        return context
 
