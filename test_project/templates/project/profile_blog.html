@@ -33,7 +33,7 @@
             Following: {{ all_following|length }}
         </h5>
         <h5> 
-            Followers: {{ all_followers|length }}
+            Followers: <a href="{% url 'project:user_followers' author %}">{{ all_followers|length }}</a>
         </h5>
 
     
