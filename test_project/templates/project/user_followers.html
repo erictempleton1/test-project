@@ -8,11 +8,15 @@
 	<h4>
 		{{ author }} | Followers
 	</h4>
-
+      {% if not user.is_authenticated %}
         {% for person in all_followers %}
 			<p>
-				{{ person }}
+				<a href="{% url 'project:profile_detail' person %}">{{ person }}</a>         
+				<a href="/accounts/login/">
+           			<button type="button" class="btn btn-primary btn-sm">Follow</button>
+         		</a>
 			</p>
-		{% endfor %}	
+		{% endfor %}
+	  {% endif %}	
 
 {% endblock %}
