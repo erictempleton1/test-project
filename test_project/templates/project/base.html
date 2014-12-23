@@ -57,6 +57,7 @@
 
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
+            <li><a href="{% url 'project:profile_detail' author=user.username %}">{{ user.username }}</a></li>
             <li><a href="/accounts/logout?next=/">Logout</a></li>
             {% else %}
             <li><a href="/accounts/login">Log in</a></li>

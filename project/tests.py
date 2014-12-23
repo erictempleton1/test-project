@@ -17,7 +17,7 @@ class ProfileFollowButtonTest(LiveServerTestCase):
                 'tag_data.json', 'user_profile.json']
    
     def setUp(self):
-    	self.driver = webdriver.Firefox()
+        self.driver = webdriver.Firefox()
         self.client = Client()
 
     def login_example_user(self):
