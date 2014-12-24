@@ -13,7 +13,7 @@ from selenium import webdriver
 
 class ProfileFollowButtonTest(LiveServerTestCase):
 
-	fixtures = ['user_data.json', 'post_data.json',
+    fixtures = ['user_data.json', 'post_data.json',
                 'tag_data.json', 'user_profile.json']
    
     def setUp(self):
@@ -171,6 +171,18 @@ class ListFollowPageTest(LiveServerTestCase):
 
         # confirm taken to login page
         self.assertIn('Username', self.driver.page_source)
+
+    def test_followers_authd(self):
+    	driver = self.driver
+    	self.login_example_user()
+
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
+
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/bill/followers'))
+
+    	self.assertIn('eric', self.driver.page_source)
 
     def tearDown(self):
     	self.driver.quit()

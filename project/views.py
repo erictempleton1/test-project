@@ -139,16 +139,16 @@ class ProfileBlog(ListView):
         context['author'] = self.kwargs['author']
         
         # get or user and author objects
-        user_follow = get_object_or_404(User, username=self.kwargs['author'])
+        user_follow = User.objects.filter(username=self.kwargs['author'])
         
         # return following/follower count
-        user_follows = get_object_or_404(UserProfile, user=user_follow)
+        user_follows, created = UserProfile.objects.get_or_create(user=user_follow)
         context['all_following'] = user_follows.following.all()
         context['all_followers'] = user_follows.followers.all()
 
         try:
             # check if user is already following the author
-            me = get_object_or_404(UserProfile, user=self.request.user)
+            me, created_me = UserProfile.objects.get_or_create(user=self.request.user)
             context['follow_exists'] = me.following.filter(user=user_follow).exists()
         except TypeError:
             # users not logged in raise TypeError
@@ -241,7 +241,17 @@ class UserFollowers(ListView):
        try:
            # check if user is already following the author
            me = get_object_or_404(UserProfile, user=self.request.user)
-           follow_exists = me.following.filter(user=user_follow).exists()
+           follow_exists = []
+           not_following = []
+           for user in all_followers:
+               check_follow = me.following.filter(user=user).exists()
+               if follow_exists:
+                   follow_exists.append(user)
+               if not follow_exists:
+                   not_following.append(user)
+
+           context['follow_exists'] = follow_exists
+           context['not_following'] = not_following
        except TypeError:
            # users not logged in raise TypeError
            # self.request.user does not exist for users not logged in

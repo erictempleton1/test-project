@@ -10,19 +10,25 @@
 
       {% if user.is_authenticated and user.username != author %}
         {% if follow_exists %}
-        <a href="{% url "project:unfollow_user" author %}">
+        <p>
+            <a href="{% url "project:unfollow_user" author %}">
             <button type="button" class="pull-right btn btn-default btn-sm">Unfollow</button>
-         </a>
+             </a>
+        </p>
         {% else %}
-        <a href="{% url "project:follow_user" author %}">
-            <button type="button" class="pull-right btn btn-primary btn-sm">Follow</button>
-         </a>
+        <p>
+            <a href="{% url "project:follow_user" author %}">
+                <button type="button" class="pull-right btn btn-primary btn-sm">Follow</button>
+            </a>
+        </p>
         {% endif %}
        {% endif %}
       {% if not user.is_authenticated %}
+      <p>
         <a href="/accounts/login/">
             <button type="button" class="pull-right btn btn-primary btn-sm">Follow</button>
          </a>
+      </p>
       {% endif %}
     </h4>
 
