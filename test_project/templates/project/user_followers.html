@@ -8,32 +8,7 @@
 	<h4>
 		<a href="{% url 'project:profile_detail' author %}">{{ author }}</a> | Followers
 	</h4>
-	  {% if user.is_authenticated %}
-	      {% for author in follow_exists %}
-	      <p>
-	      	<a href="{% url 'project:profile_detail' author %}">{{ author }}</a>
-	      	<a href="{% url "project:unfollow_user" author %}">
-            	<button type="button" class="btn btn-default btn-sm">Unfollow</button>
-         	</a>
-         </p>
-          {% endfor %}
-          {% for author in not_following %}
-          <p>
-          	<a href="{% url 'project:profile_detail' author %}">{{ author }}</a>
-          	<a href="{% url "project:follow_user" author %}">
-            	<button type="button" class="btn btn-primary btn-sm">Follow</button>
-         	</a>
-         </p>
-          {% endfor %}
-      {% else %}
-        {% for author in all_followers %}
-			<p>
-				<a href="{% url 'project:profile_detail' author %}">{{ author }}</a>         
-				<a href="/accounts/login/">
-           			<button type="button" class="btn btn-primary btn-sm">Follow</button>
-         		</a>
-			</p>
-		{% endfor %}
-	  {% endif %}	
+</ul>
+
 
 {% endblock %}
