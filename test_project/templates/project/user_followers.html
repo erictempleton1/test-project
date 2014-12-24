@@ -8,6 +8,13 @@
 	<h4>
 		<a href="{% url 'project:profile_detail' author %}">{{ author }}</a> | Followers
 	</h4>
+
+	{% for user in all_followers %}
+		<p>
+			<a href="{% url 'project:profile_detail' user %}">{{ user }}</a>
+		</p>
+	{% endfor %}
+
 </ul>
 
 

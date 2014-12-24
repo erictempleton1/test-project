@@ -135,7 +135,7 @@ class ProfileBlog(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
-        context['author_posts'] = get_list_or_404(BlogPost, author=self.kwargs['author'])
+        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
         context['author'] = self.kwargs['author']
         
         # get or user and author objects
@@ -234,17 +234,7 @@ class UserFollowers(ListView):
        # return author's followers
        user_follows = get_object_or_404(UserProfile, user=user_follow)
        all_followers = user_follows.followers.all()
-
-       # work on code that iterates over followers and checks if auth'd
-       # user already follows them
-       # possibly split into two seperate lists
-       try:
-           # check if user is already following the author
-           me = get_object_or_404(UserProfile, user=self.request.user)
-       except TypeError:
-           # users not logged in raise TypeError
-           # self.request.user does not exist for users not logged in
-           context['all_followers'] = all_followers
+       context['all_followers'] = all_followers
 
        return context
 

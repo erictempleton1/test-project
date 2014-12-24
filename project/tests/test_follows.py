@@ -159,5 +159,21 @@ class ListFollowPageTest(LiveServerTestCase):
     	response = c.get('/eric/followers/')
     	self.assertEqual(response.status_code, 200)
 
+    def test_followers_list(self):
+    	driver = self.driver
+    	self.login_example_user()
+
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
+
+        # log out so there is no false positive
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/accounts/logout/'))
+
+        self.driver.get(
+        	'{0}{1}'.format(self.live_server_url, '/bill/followers'))
+
+        self.assertIn('eric', self.driver.page_source)
+
     def tearDown(self):
     	self.driver.quit()
