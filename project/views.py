@@ -268,7 +268,7 @@ class FollowUser(View):
         if follow_exists or request.user.username == author:
             return redirect('/{}'.format(author))
         else:
-            add_user, user_created = UserProfile.objects.get_or_create(user=user_follow)
+            add_user = get_object_or_404(UserProfile, user=user_follow)
             me.following.add(add_user)
             return redirect('/{}'.format(author))
 

@@ -11,7 +11,7 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 from selenium import webdriver
 
 
-class ProfileFollowButtonTest(LiveServerTestCase):
+class ProfileFollowTest(LiveServerTestCase):
 
     fixtures = ['user_data.json', 'post_data.json',
                 'tag_data.json', 'user_profile.json']
@@ -115,6 +115,16 @@ class ProfileFollowButtonTest(LiveServerTestCase):
 
     	self.assertEqual(self.follow_exists(), False)
 
+    def test_follow_unknown_user(self):
+    	driver = self.driver
+    	self.login_example_user()
+
+        # try to follow unknonw user
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/pickles/follow'))
+
+    	self.assertIn('Not Found', self.driver.page_source)
+
     def tearDown(self):
     	self.driver.quit()
 
@@ -148,41 +158,6 @@ class ListFollowPageTest(LiveServerTestCase):
     	c = Client()
     	response = c.get('/eric/followers/')
     	self.assertEqual(response.status_code, 200)
-
-    def test_followers_unauthd(self):
-    	driver = self.driver
-    	self.login_example_user()
-
-        # login and follow bill
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
-
-        # logout
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/logout?next=/'))
-
-        # view bill's followers as logged out user
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/followers'))
-        
-        # click follow on one of bills followers
-        self.driver.find_element_by_xpath(
-        	'/html/body/div[2]/div/div/ul/p/a[2]/button').click()
-
-        # confirm taken to login page
-        self.assertIn('Username', self.driver.page_source)
-
-    def test_followers_authd(self):
-    	driver = self.driver
-    	self.login_example_user()
-
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
-
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/followers'))
-
-    	self.assertIn('eric', self.driver.page_source)
 
     def tearDown(self):
     	self.driver.quit()
