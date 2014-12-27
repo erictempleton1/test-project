@@ -224,7 +224,6 @@ class UserFollowers(ListView):
     template_name = 'project/user_followers.html'
 
     def get_context_data(self, **kwargs):
-
        context = super(UserFollowers, self).get_context_data(**kwargs)
        context['author'] = self.kwargs['author']
 
@@ -235,8 +234,24 @@ class UserFollowers(ListView):
        user_follows = get_object_or_404(UserProfile, user=user_follow)
        all_followers = user_follows.followers.all()
        context['all_followers'] = all_followers
-
        return context
+
+class UserFollowing(ListView):
+    model = UserProfile
+    template_name = 'project/user_following.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserFollowing, self).get_context_data(**kwargs)
+        context['author'] = self.kwargs['author']
+
+        # get author objects
+        user_follow = get_object_or_404(User, username=self.kwargs['author'])
+
+        # return users author is following
+        user_follows = get_object_or_404(UserProfile, user=user_follow)
+        all_following = user_follows.following.all()
+        context['all_following'] = all_following
+        return context
 
 class FollowUser(View):
     """ 

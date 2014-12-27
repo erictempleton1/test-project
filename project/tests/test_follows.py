@@ -153,7 +153,7 @@ class ListFollowPageTest(LiveServerTestCase):
     	self.driver.find_element_by_xpath(
     		'/html/body/div[2]/div/div/form/input[2]').click()
 
-    def test_page_load(self):
+    def test_followers_page_load(self):
     	""" Simple check that page loads """
     	c = Client()
     	response = c.get('/eric/followers/')
@@ -166,7 +166,7 @@ class ListFollowPageTest(LiveServerTestCase):
     	self.driver.get(
     		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
 
-        # log out so there is no false positive
+        # log out so there isn't a false positive
     	self.driver.get(
     		'{0}{1}'.format(self.live_server_url, '/accounts/logout/'))
 
@@ -174,6 +174,11 @@ class ListFollowPageTest(LiveServerTestCase):
         	'{0}{1}'.format(self.live_server_url, '/bill/followers'))
 
         self.assertIn('eric', self.driver.page_source)
+
+    def test_following_page_load(self):
+        c = Client()
+        response = c.get('/eric/following/')
+        self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
     	self.driver.quit()
