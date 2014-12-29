@@ -193,7 +193,7 @@ class ListFollowPageTest(LiveServerTestCase):
         self.driver.get(
             '{0}{1}'.format(self.live_server_url, '/eric/following'))
         
-        self.assertIn{'bill', self.driver.page_souce)
+        self.assertIn('bill', self.driver.page_source)
 
     def tearDown(self):
     	self.driver.quit()

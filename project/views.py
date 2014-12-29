@@ -220,6 +220,7 @@ class BlogTags(ListView):
 		return context
 
 class UserFollowers(ListView):
+    """ Lists all followers for a given user """
     model = UserProfile
     template_name = 'project/user_followers.html'
 
@@ -237,6 +238,7 @@ class UserFollowers(ListView):
        return context
 
 class UserFollowing(ListView):
+    """ Lists all users a user is following """
     model = UserProfile
     template_name = 'project/user_following.html'
 
@@ -300,6 +302,3 @@ class UnfollowUser(View):
 
 # notes:
 #
-# clean up followuser view
-# pass follow lists to template
-# m = get_object_or_404(UserProfile, user__username='eric')
