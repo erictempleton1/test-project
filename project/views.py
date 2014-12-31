@@ -281,16 +281,14 @@ class FollowUser(View):
 
 class UnfollowUser(View):
     """
-    Unfollow a user, similar approach to FollowUser.
+    Unfollow a user, which uses similar approach to FollowUser.
     Uses get_object_or_404 instead of get_or_create so extra instances aren't created.
     """
     model = UserProfile
 
     def get(self, request, author):
-
         me = get_object_or_404(UserProfile, user=request.user)
         user_follow = get_object_or_404(User, username=str(author))
-
         follow_exists = me.following.filter(user=user_follow).exists()
 
         if follow_exists and request.user.username != author:
@@ -299,6 +297,12 @@ class UnfollowUser(View):
             return redirect('/{}'.format(author))
         else:
             return redirect('/{}'.format(author))
+
+class FavoritePost(View):
+    model = UserProfile
+
+    def get(self, request, id, slug):
+        return redirect('/')
 
 # notes:
 #
