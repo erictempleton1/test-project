@@ -30,7 +30,11 @@ class BlogPostTags(models.Model):
         
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    following = models.ManyToManyField('self', related_name='followers', symmetrical=False)
+    favorites = models.ManyToManyField(BlogPost,
+        related_name='favorited')
+    following = models.ManyToManyField('self',
+        related_name='followers',
+        symmetrical=False)
     
     def __unicode__(self):
         return self.user.username
