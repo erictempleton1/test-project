@@ -302,6 +302,12 @@ class FavoritePost(View):
     model = UserProfile
 
     def get(self, request, id, slug):
+
+        # need to test this
+        me, me_created = UserProfile.objects.get_or_create(user=request.user)
+        post_fav = get_object_or_404(BlogPost, id=id)
+        me.favorites.add(post_fav)
+
         return redirect('/')
 
 # notes:
