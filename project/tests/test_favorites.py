@@ -34,16 +34,19 @@ class FavoritesTest(LiveServerTestCase):
     		'/html/body/div[2]/div/div/form/input[2]').click()
 
     def test_fav_pageload(self):
-        response = self.client.get('/13/sweater-master-cleanse/favorite/')
         self.login_example_user()
-        
+
+        self.driver.get(
+        	'{0}{1}'.format(self.live_server_url,
+        		'/1/wolf-mustache-fap-umami/favorite/'
+        		))
+
         eric = User.objects.get(username='eric')
         me, me_created = UserProfile.objects.get_or_create(user=eric)
-        post_fav = BlogPost.objects.get(id=13)
-        fav_exists = me.favorites.get(favorites=post_fav)
+        fav_exists = me.favorites.all()
 
+        print me.favorites.all()
         self.assertTrue(fav_exists)
-        self.assertEqual(response.status_code, 302)
 
     def tearDown(self):
         self.driver.quit()
