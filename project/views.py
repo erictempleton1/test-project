@@ -302,13 +302,14 @@ class FavoritePost(View):
     model = UserProfile
 
     def get(self, request, id, slug):
-
-        # need to test this
+        """
+        Saves current post to favorites list.
+        Duplicate favorites not saved.
+        """
         me, me_created = UserProfile.objects.get_or_create(user=request.user)
         post_fav = get_object_or_404(BlogPost, id=id)
         me.favorites.add(post_fav)
-
-        return redirect('/')
+        return redirect('/{0}/{1}'.format(id, slug))
 
 # notes:
 #

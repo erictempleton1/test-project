@@ -33,20 +33,28 @@ class FavoritesTest(LiveServerTestCase):
     	self.driver.find_element_by_xpath(
     		'/html/body/div[2]/div/div/form/input[2]').click()
 
-    def test_fav_pageload(self):
+    def test_fav_add(self):
+    	"""
+    	Test that unique posts are saved, and duplicates not added.
+    	List len should be 2.
+    	"""
         self.login_example_user()
 
-        self.driver.get(
-        	'{0}{1}'.format(self.live_server_url,
-        		'/1/wolf-mustache-fap-umami/favorite/'
-        		))
+        test_urls = ['/1/wolf-mustache-fap-umami/favorite/',
+                     '/11/etsy-austin/favorite/',
+                     '/11/etsy-austin/favorite/']
+
+        for url in test_urls:
+           self.driver.get('{0}{1}'.format(
+                           self.live_server_url, url))          
 
         eric = User.objects.get(username='eric')
         me, me_created = UserProfile.objects.get_or_create(user=eric)
-        fav_exists = me.favorites.all()
+        favs = me.favorites.all()
 
-        print me.favorites.all()
-        self.assertTrue(fav_exists)
+        print favs
+        print len(favs)
+        self.assertEqual(len(favs), 2)
 
     def tearDown(self):
         self.driver.quit()
