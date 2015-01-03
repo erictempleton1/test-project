@@ -36,7 +36,7 @@ class FavoritesTest(LiveServerTestCase):
     def test_fav_add(self):
     	"""
     	Test that unique posts are saved, and duplicates not added.
-    	List len should be 2.
+    	List len below should be 2.
     	"""
         self.login_example_user()
 
@@ -55,6 +55,10 @@ class FavoritesTest(LiveServerTestCase):
         print favs
         print len(favs)
         self.assertEqual(len(favs), 2)
+
+    def test_fav_remove(self):
+    	response = self.client.get('/1/wolf-mustache-fap-umami/unfavorite/')
+    	self.assertEqual(response.status_code, 302)
 
     def tearDown(self):
         self.driver.quit()

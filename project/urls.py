@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
-            UserFollowers, UserFollowing, FavoritePost)
+            UserFollowers, UserFollowing, FavoritePost, UnfavoritePost)
 
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
@@ -16,6 +16,8 @@ urlpatterns = patterns('',
         login_required(BlogPostDelete.as_view()), name='delete'),
     url(r'(?P<id>\d+)/(?P<slug>[\w-]+)/favorite/$',
         login_required(FavoritePost.as_view()), name='favorite'),
+    url(r'(?P<id>\d+)/(?P<slug>[\w-]+)/unfavorite/$',
+        login_required(UnfavoritePost.as_view()), name='unfavorite'),
     url(r'tag/(?P<tag>[\w-]+)/$', BlogTags.as_view(), name='tagged_posts'),
     url(r'dashboard/$',
         login_required(UserDashboard.as_view()), name='user_dashboard'),
