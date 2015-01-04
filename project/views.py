@@ -315,6 +315,9 @@ class UnfavoritePost(View):
     model = UserProfile
 
     def get(self, request, id, slug):
+        me, me_created = UserProfile.objects.get_or_create(user=request.user)
+        post_unfav = get_object_or_404(BlogPost, id=id)
+        me.favorites.remove(post_unfav)
         return redirect('/{0}/{1}'.format(id, slug))
 
 # notes:

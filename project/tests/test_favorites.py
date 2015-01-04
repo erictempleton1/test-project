@@ -52,13 +52,29 @@ class FavoritesTest(LiveServerTestCase):
         me, me_created = UserProfile.objects.get_or_create(user=eric)
         favs = me.favorites.all()
 
-        print favs
-        print len(favs)
         self.assertEqual(len(favs), 2)
 
     def test_fav_remove(self):
-    	response = self.client.get('/1/wolf-mustache-fap-umami/unfavorite/')
-    	self.assertEqual(response.status_code, 302)
+    	"""
+    	Test that posts are added and removed
+    	"""
+    	self.login_example_user()
+
+        # add two posts to favorites, and remove one
+    	test_urls = ['/1/wolf-mustache-fap-umami/favorite/',
+    	             '/11/etsy-austin/favorite/',
+    	             '/11/etsy-austin/unfavorite/']
+
+    	for url in test_urls:
+    		self.driver.get('{0}{1}'.format(
+    			self.live_server_url, url))
+
+        # query to verify
+        eric = User.objects.get(username='eric')
+        me, me_created = UserProfile.objects.get_or_create(user=eric)
+        favs = me.favorites.all()
+
+        self.assertEqual(len(favs), 1)
 
     def tearDown(self):
         self.driver.quit()
