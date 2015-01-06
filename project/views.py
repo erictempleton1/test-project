@@ -61,9 +61,12 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         context['blog_post'].hits += 1
         context['blog_post'].save()
 
-        # un-auth'd user has no user object, so typeerror exists
-        # catching the error below forces un-auth'd user to login or reg,
-        # and allows the page to load
+        """
+        Checks if favorite exists already.
+        Un-auth'd user has no user object, so typeerror exists.
+        Catching the error below forces un-auth'd user to login or reg
+        if they click fav, and allows the page to load.
+        """
         try:
             me, created = UserProfile.objects.get_or_create(user=self.request.user)
             if current_post in me.favorites.all():

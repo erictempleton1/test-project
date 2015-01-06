@@ -58,7 +58,7 @@ class FavoritesTest(LiveServerTestCase):
 
     def test_fav_remove(self):
     	"""
-    	Test that posts are added and removed
+    	Test that posts are added and removed.
     	"""
     	self.login_example_user()
 
@@ -79,8 +79,22 @@ class FavoritesTest(LiveServerTestCase):
         self.assertEqual(len(favs), 1)
 
     def test_load_loggedout(self):
+    	"""
+    	Test that blog post page loads for un-auth'd user.
+    	TypeError is thrown if there is no user object
+    	"""
     	response = self.client.get('/11/etsy-austin/')
     	self.assertEqual(response.status_code, 200)
+
+    def test_loggedout_redirect(self):
+    	"""
+    	Test that un-auth'd user is redirected to login
+    	if they try to favorite a post.
+    	"""
+    	self.driver.get('{0}{1}'.format(
+    		self.live_server_url, '/11/etsy-austin/favorite/'))
+
+    	self.assertIn('Password', self.driver.page_source)
 
     def tearDown(self):
         self.driver.quit()
