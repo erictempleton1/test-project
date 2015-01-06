@@ -61,6 +61,7 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         context['blog_post'].hits += 1
         context['blog_post'].save()
 
+        # need to write tests and account for users not logged in
         me, created = UserProfile.objects.get_or_create(user=self.request.user)
         if current_post in me.favorites.all():
             context['favorite_exists'] = True
