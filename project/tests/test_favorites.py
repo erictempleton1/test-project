@@ -78,5 +78,9 @@ class FavoritesTest(LiveServerTestCase):
 
         self.assertEqual(len(favs), 1)
 
+    def test_load_loggedout(self):
+    	response = self.client.get('/11/etsy-austin/')
+    	self.assertEqual(response.status_code, 200)
+
     def tearDown(self):
         self.driver.quit()

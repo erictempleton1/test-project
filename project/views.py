@@ -61,11 +61,15 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         context['blog_post'].hits += 1
         context['blog_post'].save()
 
-        # need to write tests and account for users not logged in
-        me, created = UserProfile.objects.get_or_create(user=self.request.user)
-        if current_post in me.favorites.all():
-            context['favorite_exists'] = True
-        else:
+        # un-auth'd user has no user object, so typeerror exists
+        # catching the error below forces un-auth'd user to login or reg
+        try:
+            me, created = UserProfile.objects.get_or_create(user=self.request.user)
+            if current_post in me.favorites.all():
+                context['favorite_exists'] = True
+            else:
+                context['favorite_exists'] = False
+        except TypeError:
             context['favorite_exists'] = False
 
         return context
