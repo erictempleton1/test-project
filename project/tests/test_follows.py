@@ -160,18 +160,19 @@ class ListFollowPageTest(LiveServerTestCase):
     	self.assertEqual(response.status_code, 200)
 
     def test_followers_list(self):
+        """
+        Test that user shows up in followers list.
+        Same idea as following below.
+        """
     	driver = self.driver
     	self.login_example_user()
 
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/bill/follow'))
+        test_urls = ['/bill/follow', '/accounts/logout/',
+                    '/bill/followers']
 
-        # log out so there isn't a false positive
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/logout/'))
-
-        self.driver.get(
-        	'{0}{1}'.format(self.live_server_url, '/bill/followers'))
+        for url in test_urls:
+            self.driver.get('{0}{1}'.format(
+                self.live_server_url, url))
 
         self.assertIn('eric', self.driver.page_source)
 
@@ -181,17 +182,20 @@ class ListFollowPageTest(LiveServerTestCase):
         self.assertEqual(response.status_code, 200)
         
     def test_following_list(self):
+        """ 
+        Test that user shows up in following list.
+        Login, follow user, logout (to prevent false positive),
+        and assert user followed in source.
+        """
         driver = self.driver
         self.login_example_user()
-        
-        self.driver.get(
-            '{0}{1}'.format(self.live_server_url, '/bill/follow'))
-            
-        self.driver.get(
-            '{0}{1}'.format(self.live_server_url, '/accounts/logout'))
-            
-        self.driver.get(
-            '{0}{1}'.format(self.live_server_url, '/eric/following'))
+
+        test_urls = ['/bill/follow', '/accounts/logout',
+                    '/eric/following']
+
+        for url in test_urls:
+            self.driver.get('{0}{1}'.format(
+                self.live_server_url, url))
         
         self.assertIn('bill', self.driver.page_source)
 
