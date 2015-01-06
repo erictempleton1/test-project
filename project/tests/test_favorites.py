@@ -40,14 +40,16 @@ class FavoritesTest(LiveServerTestCase):
     	"""
         self.login_example_user()
 
+        # add two unique posts and one duplicate
         test_urls = ['/1/wolf-mustache-fap-umami/favorite/',
                      '/11/etsy-austin/favorite/',
                      '/11/etsy-austin/favorite/']
 
         for url in test_urls:
            self.driver.get('{0}{1}'.format(
-                           self.live_server_url, url))          
+                           self.live_server_url, url))
 
+        # query to verify
         eric = User.objects.get(username='eric')
         me, me_created = UserProfile.objects.get_or_create(user=eric)
         favs = me.favorites.all()
