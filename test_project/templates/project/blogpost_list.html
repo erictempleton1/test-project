@@ -3,8 +3,19 @@
 {% block content %}
 
 <h1>{{ blog_post.title|title }}</h1>
-<h5>Author: <a href="{% url 'project:profile_detail' blog_post.author %}">{{ blog_post.author }}</a> | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }}</h5>
-<p>{{ blog_post.content|safe }}</p>
+	<h5>
+		Author: <a href="{% url 'project:profile_detail' blog_post.author %}">{{ blog_post.author }}</a> | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }} | 
+	{% if favorite_exists %}
+		<a title="Remove From Favorites" data-toggle="tooltip" href="{% url "project:unfavorite" id=blog_post.id slug=blog_post.slug %}">
+			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		</a>
+	{% else %}
+		<a title="Add To Favorites" data-toggle="tooltip" href="{% url "project:favorite" id=blog_post.id slug=blog_post.slug %}">
+			<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		</a>
+	{% endif %}
+	</h5>
+	<p>{{ blog_post.content|safe }}</p>
 
 
 {% if blog_post.author == user.username %}

@@ -15,8 +15,6 @@
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
   </head>
-  
-
   <body>
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -102,6 +100,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript">
+        $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+          })  
+    </script>
 
   </body>
 </html>

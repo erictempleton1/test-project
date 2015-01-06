@@ -52,13 +52,21 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         """ Gets post, and tags for post by id """
         context = super(BlogPostDetail, self).get_context_data(**kwargs)
         self.id = self.kwargs['id']
-        context['blog_post'] = BlogPost.objects.get(id=self.id)
+        current_post = BlogPost.objects.get(id=self.id)
+        context['blog_post'] = current_post
         context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
 
         # works for now, but makes more queries than preferred
         # need to revisit later
         context['blog_post'].hits += 1
         context['blog_post'].save()
+
+        me, created = UserProfile.objects.get_or_create(user=self.request.user)
+        if current_post in me.favorites.all():
+            context['favorite_exists'] = True
+        else:
+            context['favorite_exists'] = False
+
         return context
 
     def form_valid(self, form):
