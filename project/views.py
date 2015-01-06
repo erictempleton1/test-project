@@ -62,7 +62,8 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         context['blog_post'].save()
 
         # un-auth'd user has no user object, so typeerror exists
-        # catching the error below forces un-auth'd user to login or reg
+        # catching the error below forces un-auth'd user to login or reg,
+        # and allows the page to load
         try:
             me, created = UserProfile.objects.get_or_create(user=self.request.user)
             if current_post in me.favorites.all():
