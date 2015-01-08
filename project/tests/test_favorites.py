@@ -23,7 +23,7 @@ def login_example_user(self):
 
 	self.driver.find_element_by_xpath(
 		'/html/body/div[2]/div/div/form/input[2]').click()
-		
+
 
 class FavoritesAddTest(LiveServerTestCase):
 
@@ -113,3 +113,13 @@ class FavoritesAddTest(LiveServerTestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+
+class FavoritesPageTest(LiveServerTestCase):
+
+	fixtures = ['user_data.json', 'post_data.json',
+	            'tag_data.json', 'user_profile.json']
+
+	def setUp(self):
+		self.driver = webdriver.Firefox()
+		self.client = Client()
