@@ -123,3 +123,10 @@ class FavoritesPageTest(LiveServerTestCase):
 	def setUp(self):
 		self.driver = webdriver.Firefox()
 		self.client = Client()
+
+	def test_page_load(self):
+		response = self.client.get('/eric/favorites/')
+		self.assertEqual(response.status_code, 200)
+
+	def tearDown(self):
+		self.driver.quit()

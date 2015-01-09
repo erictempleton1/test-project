@@ -337,5 +337,10 @@ class UnfavoritePost(View):
         me.favorites.remove(post_unfav)
         return redirect('/{0}/{1}'.format(id, slug))
 
+
+class FavsView(ListView):
+    model = UserProfile
+    template_name = 'project/user_fav.html'
+
 # notes:
 #
