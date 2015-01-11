@@ -357,3 +357,6 @@ class FavsView(ListView):
 
 # notes:
 #
+# regex issue in urls.py exists-
+#     username with number goes to post
+#     example: /eric1/favorites
