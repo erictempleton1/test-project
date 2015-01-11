@@ -1,0 +1,19 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h3>
+	<a href="{% url 'project:profile_detail' author %}">{{ author }}</a>'s Favorite Posts
+</h3>
+
+<ul>
+	{% if author_favs %}
+		{% for post in author_favs %}
+		    <h4><a href="{% url 'project:detail' post.pk post.slug %}">{{ post.title }}</a></h4>
+		{% endfor %}
+	{% else %}
+		<h5>{{ author }} hasn't favorited any posts</h5>
+	{% endif %}
+</ul>
+
+{% endblock %}

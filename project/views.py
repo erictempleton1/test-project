@@ -68,7 +68,8 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         if they click fav, and allows the page to load.
         """
         try:
-            me, created = UserProfile.objects.get_or_create(user=self.request.user)
+            me, created = UserProfile.objects.get_or_create(
+                user=self.request.user)
             if current_post in me.favorites.all():
                 context['favorite_exists'] = True
             else:
@@ -152,11 +153,13 @@ class ProfileBlog(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
-        context['author_posts'] = BlogPost.objects.filter(author=self.kwargs['author'])
+        context['author_posts'] = BlogPost.objects.filter(
+            author=self.kwargs['author'])
         context['author'] = self.kwargs['author']
         
         # get or user and author objects
-        user_follow, user_created = User.objects.get_or_create(username=self.kwargs['author'])
+        user_follow, user_created = User.objects.get_or_create(
+            username=self.kwargs['author'])
         
         # return following/follower count
         user_follows, created = UserProfile.objects.get_or_create(user=user_follow)
@@ -299,7 +302,8 @@ class FollowUser(View):
 class UnfollowUser(View):
     """
     Unfollow a user, which uses similar approach to FollowUser.
-    Uses get_object_or_404 instead of get_or_create so extra instances aren't created.
+    Uses get_object_or_404 instead of get_or_create,
+    so extra instances aren't created.
     """
     model = UserProfile
 
@@ -329,6 +333,7 @@ class FavoritePost(View):
         return redirect('/{0}/{1}'.format(id, slug))
 
 class UnfavoritePost(View):
+    """ Removes current post from favorites list. """
     model = UserProfile
 
     def get(self, request, id, slug):
@@ -337,10 +342,19 @@ class UnfavoritePost(View):
         me.favorites.remove(post_unfav)
         return redirect('/{0}/{1}'.format(id, slug))
 
-
 class FavsView(ListView):
+    """List all posts a user has favorited"""
     model = UserProfile
     template_name = 'project/user_fav.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FavsView, self).get_context_data(**kwargs)
+        current_author = get_object_or_404(User, username=self.kwargs['author'])
+        author_favs, created = UserProfile.objects.get_or_create(
+            user=current_author)
+        context['author_favs'] = author_favs.favorites.all()
+        context['author'] = self.kwargs['author']
+        return context
 
 # notes:
 #
