@@ -91,7 +91,6 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
 	        """ 
 	        Checks if tag exists, then saves to M2M.
 	        Uses slug validation to ensure no spaces in tag.
-
 	        """
 	        current_blog = BlogPost.objects.get(id=self.blog_id)
 	        add_tag = BlogPostTags(tag=self.blog_tag)
