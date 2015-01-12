@@ -115,18 +115,67 @@ class FavoritesAddTest(LiveServerTestCase):
         self.driver.quit()
 
 
-class FavoritesPageTest(LiveServerTestCase):
+class FavoritesListTest(LiveServerTestCase):
 
-	fixtures = ['user_data.json', 'post_data.json',
+    fixtures = ['user_data.json', 'post_data.json',
 	            'tag_data.json', 'user_profile.json']
 
-	def setUp(self):
-		self.driver = webdriver.Firefox()
-		self.client = Client()
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        self.client = Client()
 
-	def test_page_load(self):
-		response = self.client.get('/eric/favorites/')
-		self.assertEqual(response.status_code, 200)
+    def login_example_user(self):
+    	""" Log in when needed """
+    	driver = self.driver
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/accounts/login/'))
 
-	def tearDown(self):
-		self.driver.quit()
+    	self.driver.find_element_by_id('id_username').send_keys(
+    		settings.EXAMPLE_USERNAME)
+    	self.driver.find_element_by_id('id_password').send_keys(
+    		settings.EXAMPLE_PASSWORD)
+
+    	self.driver.find_element_by_xpath(
+    		'/html/body/div[2]/div/div/form/input[2]').click()
+
+    def test_load(self):
+    	""" 
+    	Simple load test
+    	Also tests that un-auth'd users can view favs
+    	"""
+        response = self.client.get('/eric/favorites/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_add_fav(self):
+    	""" Test that favorited post is listed """
+    	driver = self.driver
+    	self.login_example_user()
+
+        # fav a post then check favs list
+    	test_urls = ['/7/roof-party-paleo/favorite/',
+    	            '/eric/favorites/']
+
+    	for url in test_urls:
+    		self.driver.get('{0}{1}'.format(
+    			self.live_server_url, url))
+
+    	self.assertIn('Roof', self.driver.page_source)
+
+    def test_remove_fav(self):
+    	""" Test that unfavorited post is removed from list """
+    	driver = self.driver
+    	self.login_example_user()
+
+        # fav a post, unfav a post, and check favs list
+    	test_urls = ['/7/roof-party-paleo/favorite/',
+    	            '/7/roof-party-paleo/unfavorite/',
+    	            '/eric/favorites/']
+
+    	for url in test_urls:
+    		self.driver.get('{0}{1}'.format(
+    			self.live_server_url, url))
+
+    	self.assertNotIn('Roof', self.driver.page_source)
+
+    def tearDown(self):
+        self.driver.quit()
