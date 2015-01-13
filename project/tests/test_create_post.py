@@ -33,16 +33,35 @@ class CreatePostTest(LiveServerTestCase):
     	self.driver.find_element_by_xpath(
     		'/html/body/div[2]/div/div/form/input[2]').click()
 
+        # go to create post page
+    	self.driver.get(
+    		'{0}{1}'.format(self.live_server_url, '/create/'))
+
     def test_page_load(self):
     	"""
     	Basic test to ensure create page loads for auth'd user
     	"""
     	driver = self.driver
     	self.login_example_user()
-
-    	self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/create/'))
     	self.assertIn('Title', self.driver.page_source)
+
+    def test_body_error(self):
+    	"""
+    	Test that error shows up for no body text on submit.
+    	Not able to find body xpath for some reason,
+    	but manual test shows that error displays for missing
+    	title as well.
+    	"""
+    	driver = self.driver
+    	self.login_example_user()
+
+    	self.driver.find_element_by_xpath(
+    		'//*[@id="id_title"]').send_keys('Title')
+
+    	self.driver.find_element_by_xpath(
+    		'/html/body/div[2]/div/form/button').click()
+    	
+    	self.assertIn('required', self.driver.page_source)
 
     def tearDown(self):
     	self.driver.quit()
