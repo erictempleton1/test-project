@@ -123,7 +123,7 @@ class BlogPostCreate(CreateView):
         return super(BlogPostCreate, self).form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'This field is required')
+        messages.error(self.request, 'Both fields are required')
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_queryset(self):
