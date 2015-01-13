@@ -145,11 +145,6 @@ class ProfileBlog(ListView):
     model = BlogPost
     template_name = 'project/profile_blog.html'
 
-    def get_success_url(self):
-        return reverse('project:profile_details', kwargs={
-            'author': self.object.author,
-            })
-
     def get_context_data(self, **kwargs):
         context = super(ProfileBlog, self).get_context_data(**kwargs)
         context['author_posts'] = BlogPost.objects.filter(
