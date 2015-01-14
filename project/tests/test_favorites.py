@@ -10,21 +10,6 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 
 from selenium import webdriver
 
-def login_example_user(self):
-	""" Log in when needed """
-	driver = self.driver
-	self.driver.get(
-		'{0}{1}'.format(self.live_server_url, '/accounts/login/'))
-
-	self.driver.find_element_by_id('id_username').send_keys(
-		settings.EXAMPLE_USERNAME)
-	self.driver.find_element_by_id('id_password').send_keys(
-		settings.EXAMPLE_PASSWORD)
-
-	self.driver.find_element_by_xpath(
-		'/html/body/div[2]/div/div/form/input[2]').click()
-
-
 class FavoritesAddTest(LiveServerTestCase):
 
     fixtures = ['user_data.json', 'post_data.json',

@@ -25,7 +25,7 @@ class BlogPostTags(models.Model):
     tag = models.CharField(max_length=100)
     blog_posts = models.ManyToManyField(BlogPost)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.tag
         
 class UserProfile(models.Model):
