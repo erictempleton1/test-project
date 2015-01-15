@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from project.forms import BlogForm, BlogPostTagsForm
 from django.contrib.messages.views import SuccessMessageMixin
+from registration.backends.simple.views import RegistrationView
 from project.models import BlogPost, BlogPostTags, UserProfile
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.views.generic import (ListView, CreateView, DetailView,
@@ -35,6 +37,14 @@ class HomePageView(ListView):
         clean_tags = [str(tag) for tag in tags]
         c = Counter(clean_tags)
         return c.most_common()
+
+class RegistrationRedirect(RegistrationView):
+    """
+    Overrides default django-reg redirect
+    and returns new user to homepage.
+    """
+    def get_success_url(self, request, user):
+        return reverse('project:homepage')
 
 class AboutPageView(TemplateView):
 	""" Basic About page """

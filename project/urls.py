@@ -4,10 +4,11 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
             UserFollowers, UserFollowing, FavoritePost, UnfavoritePost,
-            FavsView)
+            FavsView, RegistrationRedirect)
 
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
+    url(r'^accounts/register/$', RegistrationRedirect.as_view(), name='reg_redirect'),
     url(r'about/$', AboutPageView.as_view(), name='about'),
     url(r'create/$', login_required(BlogPostCreate.as_view()), name='create'),
     url(r'(?P<id>\d+)/(?P<slug>[\w-]+)/$', BlogPostDetail.as_view(), name='detail'),
