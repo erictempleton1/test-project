@@ -64,7 +64,8 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
         self.id = self.kwargs['id']
         current_post = BlogPost.objects.get(id=self.id)
         context['blog_post'] = current_post
-        context['tags'] = BlogPost.objects.get(id=self.id).blogposttags_set.all()
+        context['tags'] = BlogPost.objects.get(
+            id=self.id).blogposttags_set.all()
 
         # works for now, but makes more queries than preferred
         # need to revisit later
@@ -108,8 +109,10 @@ class BlogPostDetail(SuccessMessageMixin, FormView):
 	        add_tag.blog_posts.add(current_blog)
 	        return super(BlogPostDetail, self).form_valid(form)
         else:
-            messages.error(self.request, 
-            	'The tag "{0}" already exists for this post!'.format(self.blog_tag))
+            messages.error(
+                self.request,
+                'The tag "{0}" already exists for this post!'.format(
+                    self.blog_tag))
             return super(BlogPostDetail, self).form_invalid(form)
 
     def get_success_url(self):
@@ -172,8 +175,10 @@ class ProfileBlog(ListView):
 
         try:
             # check if user is already following the author
-            me, created_me = UserProfile.objects.get_or_create(user=self.request.user)
-            context['follow_exists'] = me.following.filter(user=user_follow).exists()
+            me, created_me = UserProfile.objects.get_or_create(
+                user=self.request.user)
+            context['follow_exists'] = me.following.filter(
+                user=user_follow).exists()
         except TypeError:
             # users not logged in raise TypeError
             # self.request.user does not exist for users not logged in
@@ -271,7 +276,10 @@ class UserFollowing(ListView):
         context['author'] = self.kwargs['author']
 
         # get author objects
-        user_follow = get_object_or_404(User, username=self.kwargs['author'])
+        user_follow = get_object_or_404(
+            User,
+            username=self.kwargs['author']
+            )
 
         # return users author is following
         user_follows = get_object_or_404(UserProfile, user=user_follow)
@@ -353,7 +361,10 @@ class FavsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(FavsView, self).get_context_data(**kwargs)
-        current_author = get_object_or_404(User, username=self.kwargs['author'])
+        current_author = get_object_or_404(
+            User,
+            username=self.kwargs['author']
+            )
         author_favs, created = UserProfile.objects.get_or_create(
             user=current_author)
         context['author_favs'] = author_favs.favorites.all()
