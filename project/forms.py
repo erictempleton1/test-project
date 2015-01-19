@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm, CharField
 from project.models import BlogPost, BlogPostTags
 from django.core.validators import validate_slug
+from registration.forms import RegistrationForm
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class BlogForm(forms.ModelForm):
@@ -28,3 +29,7 @@ class BlogPostTagsForm(forms.ModelForm):
     class Meta:
         model = BlogPostTags
         fields = ['tag']
+        
+        
+class UserRegistrationForm(RegistrationForm):
+    pass
