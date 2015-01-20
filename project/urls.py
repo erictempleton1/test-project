@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
