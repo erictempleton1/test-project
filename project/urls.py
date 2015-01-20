@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from project.forms import LoginUserForm
 from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
@@ -10,6 +11,7 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
     url(r'^accounts/register/$', RegistrationRedirect.as_view(), name='reg_redirect'),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'registration/login.html', 'authentication_form': LoginUserForm}),
     url(r'about/$', AboutPageView.as_view(), name='about'),
     url(r'create/$', login_required(BlogPostCreate.as_view()), name='create'),
     url(r'(?P<id>\d+)/(?P<slug>[\w-]+)/$', BlogPostDetail.as_view(), name='detail'),

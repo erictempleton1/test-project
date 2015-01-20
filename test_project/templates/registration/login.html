@@ -5,10 +5,10 @@
 <div class="text-center">
 	<form action="" method="post">
 		{% csrf_token %}
-		<p>Username: {{ form.username }}</p>
-		<p>Password:  {{ form.password }}</p>
+		<p>{{ form.username }}</p>
+		<p>{{ form.password }}</p>
 
-		<input type="submit" value="Log in">
+		<button class="btn btn-primary" type="submit">Log In</button>
 	</form>
 </div>
 
