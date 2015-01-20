@@ -9,6 +9,7 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser)
 
 from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 class RegRedirectTest(LiveServerTestCase):
 
@@ -16,7 +17,8 @@ class RegRedirectTest(LiveServerTestCase):
 	            'tag_data.json', 'user_profile.json']
 
 	def setUp(self):
-		self.driver = webdriver.Firefox()
+		self.binary = FirefoxBinary(settings.FIREFOX_BIN)
+		self.driver = webdriver.Firefox(firefox_binary=self.binary)
 		self.clien = Client()
 
 	def submit_reg_form(self):
