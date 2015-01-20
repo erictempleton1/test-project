@@ -3,6 +3,7 @@ from django.forms import ModelForm, CharField
 from project.models import BlogPost, BlogPostTags
 from django.core.validators import validate_slug
 from registration.forms import RegistrationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 class BlogForm(forms.ModelForm):
@@ -65,4 +66,15 @@ class UserRegistrationForm(RegistrationForm):
         'class': 'form-control',
         'placeholder': 'Password (again)',
         }
+    ))
+
+class LoginUserForm(AuthenticationForm):
+
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(
+            attrs={
+            'class': 'form-control',
+            'placeholder': 'Username',
+            }
     ))

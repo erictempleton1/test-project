@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm
+from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm, LoginUserForm
 from django.contrib.messages.views import SuccessMessageMixin
 from registration.backends.simple.views import RegistrationView
 from project.models import BlogPost, BlogPostTags, UserProfile
