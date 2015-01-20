@@ -32,7 +32,10 @@ class BlogPostTagsForm(forms.ModelForm):
         
         
 class UserRegistrationForm(RegistrationForm):
-
+    """
+    Subclass of RegistrationForm to add bootstrap
+    components to reg form
+    """
     username = forms.RegexField(
         regex=r'^\w+$',
         max_length=30,
