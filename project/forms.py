@@ -32,4 +32,34 @@ class BlogPostTagsForm(forms.ModelForm):
         
         
 class UserRegistrationForm(RegistrationForm):
-    pass
+
+    username = forms.RegexField(
+        regex=r'^\w+$',
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+            'class': 'form-control',
+            'placeholder': 'Username',
+            }
+    ))
+
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={
+        'class': 'form-control',
+        'placeholder': 'Email',
+        }
+    ))
+
+    password1 = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+        'class': 'form-control',
+        'placeholder': 'Password',
+        }
+    ))
+
+    password2 = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+        'class': 'form-control',
+        'placeholder': 'Password (again)',
+        }
+    ))

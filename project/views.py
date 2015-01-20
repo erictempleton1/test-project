@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from project.forms import BlogForm, BlogPostTagsForm
+from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from registration.backends.simple.views import RegistrationView
 from project.models import BlogPost, BlogPostTags, UserProfile
@@ -43,6 +43,8 @@ class RegistrationRedirect(RegistrationView):
     Overrides default django-reg redirect
     and returns new user to homepage.
     """
+    form_class = UserRegistrationForm
+
     def get_success_url(self, request, user):
         return reverse('project:homepage')
 
