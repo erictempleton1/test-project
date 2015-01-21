@@ -25,11 +25,17 @@ class BlogForm(forms.ModelForm):
 
 class BlogPostTagsForm(forms.ModelForm):
 
-    tag = CharField(validators=[validate_slug])
-
+    tag = forms.CharField(
+        validators=[validate_slug],
+        widget=forms.TextInput(
+            attrs={
+            'class': 'form-control',
+            'placeholder': 'Add your tag'
+            }
+        ))
+        
     class Meta:
         model = BlogPostTags
-        fields = ['tag']
         
         
 class UserRegistrationForm(RegistrationForm):

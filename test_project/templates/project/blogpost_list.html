@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <h1>{{ blog_post.title|title }}</h1>
 	<h5>
 		Author: <a href="{% url 'project:profile_detail' blog_post.author %}">{{ blog_post.author }}</a> | Added: {{ blog_post.added }} | Updated: {{ blog_post.updated }} | 
@@ -25,14 +26,15 @@
 		</div>
 	{% endfor %}
 
-<p>
-	<form action="" method="post">
-		{% csrf_token %}
-		{{ form.tag }}
+	<div class="col-sm-2" style="background-color: white;">
+		<form action="" method="post">
+			{% csrf_token %}
+			{{ form.tag }}
+			<p><button class="btn btn-primary" type="submit">Add Tag</button></p>
+		</form>
+	</div>
+</div>
 
-		<p><input type="submit" value="Add Tag" /></p>
-	</form>
-</p>
 {% endif %}
 
 
