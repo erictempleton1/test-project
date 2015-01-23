@@ -17,7 +17,7 @@ def create_users(num):
         	)
         users.append(user)
     User.objects.bulk_create(users)
-    return User.objects.all().order_by('-id')[:num]
+    return User.objects.all().order_by('-id')[:num-1]
 
 def single_user_posts(username, num):
 	"""
