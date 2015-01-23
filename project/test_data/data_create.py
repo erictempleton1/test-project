@@ -5,16 +5,39 @@ from faker import Factory
 fake = Factory.create()
 
 def create_users(num):
+    """
+    Creates num amount of random users.
+    """
     users = []
-    for person in range(1,num):
+    for person in range(1, num):
         user = User(
         	username=fake.user_name(),
         	email=fake.safe_email(),
-        	password='password')
+        	password='password'
+        	)
         users.append(user)
     User.objects.bulk_create(users)
     return User.objects.all().order_by('-id')[:num]
 
 def single_user_posts(username, num):
-	pass
+	"""
+	Creates num amount of posts for given user.
+	Faker adds a period on sentences, so a slice
+	is used to drop the period for title.
+	Not the most effecient method for saving posts.
+	"""
+	current_user = User.objects.get(username=username)
+	for post in range(1, num):
+		current_user.blogpost_set.create(
+			title=fake.sentence(
+				nb_words=5,
+				variable_nb_words=True)[:-1],
+			content=fake.paragraph(
+				nb_sentences=10,
+				variable_nb_sentences=True)
+			)
+		current_user.save()
+	return BlogPost.objects.all().order_by('-id')[:num-1]
+
+
 
