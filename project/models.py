@@ -12,11 +12,11 @@ class BlogPost(models.Model):
     slug = models.SlugField()
     hits = models.PositiveIntegerField(default=0)
     
-    def save(self):
+    def save(self, *args, **kwargs):
     	""" Auto saves title as slug, and user as author. """
         self.slug = slugify(self.title)
         self.author = self.user.username
-        super(BlogPost, self).save()
+        super(BlogPost, self).save(*args, **kwargs)
 		
     def __unicode__(self):
         return self.title

@@ -15,3 +15,6 @@ def create_users(num):
     User.objects.bulk_create(users)
     return User.objects.all().order_by('-id')[:num]
 
+def single_user_posts(username, num):
+	pass
+
