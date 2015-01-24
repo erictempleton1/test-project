@@ -42,10 +42,10 @@ def single_user_posts(username, num):
 
 def random_user_posts(num):
 	all_users = User.objects.all()
-	usernames = [str(user.usernames) for user in all_users]
+	usernames = [str(user.username) for user in all_users]
 	
 	for post in range(1,num):
-		current_user = User.objects.get(usernamer=random.choice(usernames)
+		current_user = User.objects.get(username=random.choice(usernames))
 		current_user.blogpost_set.create(
 			title=fake.sentence(
 				nb_words=5,
