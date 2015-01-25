@@ -10,9 +10,15 @@ def create_users(num):
     Creates num amount of random users.
     """
     users = []
+    name_types = [
+        fake.first_name(),
+        fake.first_name_male(),
+        fake.first_name_female(),
+        ]
+
     for person in range(1, num):
         user = User(
-        	username=fake.user_name(),
+        	username=random.choice(name_types),
         	email=fake.safe_email(),
         	password='password'
         	)
