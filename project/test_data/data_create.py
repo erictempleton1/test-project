@@ -8,22 +8,21 @@ fake = Factory.create()
 def create_users(num):
     """
     Creates num amount of random users.
+    Catches error for existing usernames.
     """
     users = []
-    name_types = [
-        fake.first_name(),
-        fake.first_name_male(),
-        fake.first_name_female(),
-        ]
-
     for person in range(1, num):
         user = User(
-        	username=random.choice(name_types),
+        	username=fake.first_name(),
         	email=fake.safe_email(),
         	password='password'
         	)
         users.append(user)
-    User.objects.bulk_create(users)
+    try:
+        User.objects.bulk_create(users)
+    except IntegrityError:
+    	print 'One of the usernames already exists'
+
     return User.objects.all().order_by('-id')[:num-1]
 
 def single_user_posts(username, num):
@@ -58,7 +57,7 @@ def random_user_posts(num):
 				variable_nb_words=True)[:-1],
 			content=fake.paragraph(
 				nb_sentences=10,
-				variable_nb_sentences=True)
+				variable_nb_sentences=True),
 			)
 		current_user.save()
 	return BlogPost.objects.all().order_by('-id')[:num-1]
