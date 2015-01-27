@@ -9,6 +9,7 @@ def create_users(num):
     """
     Creates num amount of random users.
     Catches error for existing usernames.
+    Huge batches typically fail.
     """
     users = []
     for person in range(1, num):
@@ -46,6 +47,10 @@ def single_user_posts(username, num):
 	return BlogPost.objects.all().order_by('-id')[:num-1]
 
 def random_user_posts(num):
+	"""
+	Selects random users from all_users list
+	and posts on their behalf.
+	"""
 	all_users = User.objects.all()
 	usernames = [str(user.username) for user in all_users]
 	
@@ -61,5 +66,22 @@ def random_user_posts(num):
 			)
 		current_user.save()
 	return BlogPost.objects.all().order_by('-id')[:num-1]
+
+def site_stats():
+	all_users = User.objects.all().order_by('-id')
+	all_posts = BlogPost.objects.all().order_by('-id')
+	site_counts = """
+	Sitewide post count: {0}
+	Sitewide user count: {1}\n
+	Recent posts: {2}\n
+	Recent users: {3}
+	""".format(
+	    	len(all_posts), 
+	    	len(all_users),
+	    	all_posts[:10],
+	    	all_users[:10]
+	    	)
+	print site_counts
+
 
 
