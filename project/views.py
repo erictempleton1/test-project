@@ -2,9 +2,9 @@ from collections import Counter
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm, LoginUserForm
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from registration.backends.simple.views import RegistrationView
 from project.models import BlogPost, BlogPostTags, UserProfile
@@ -208,10 +208,10 @@ class BlogPostUpdate(UpdateView):
 			'slug': self.object.slug,
 			})
 
-class BlogPostDelete(DeleteView):
+class BlogPostDelete(SuccessMessageMixin, DeleteView):
 	""" Requires login, and only post author can delete """
 	model = BlogPost
-	success_url = '/'
+	success_url = reverse_lazy('project:user_dashboard')
 
 	def get_queryset(self):
 		user_set = super(BlogPostDelete, self).get_queryset()
