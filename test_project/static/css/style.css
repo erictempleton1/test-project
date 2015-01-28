@@ -1,6 +1,7 @@
 /* main navbar background color and opacity */
 .navbar-default {
-	background: rgba(61,89,171,1);
+	background: rgba(255,255,255,1);
+    border-color: rgba(207,207,207,1);
 }
 
 /* toggled navbar "sandwich" lines color */
@@ -13,8 +14,8 @@ border-color: #F5F5F5;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-    color: #DCDCDC;
-    background-color: #3D59AB;
+    color: #808080;
+    background-color: #FFFFFF;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
@@ -51,28 +52,28 @@ a:hover, a:focus {
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #DCDCDC;
+    color: #525252;
     background-color: transparent;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #F5F5F5;
+    color: #282828;
 }
 
 /* navbar site name (brand) link color on hover */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-    color: #DCDCDC;
+    color: #525252;
     background-color: transparent;
 }
 
 /* navbar site name (brand) text color */
 .navbar-default .navbar-brand {
-    color: #F5F5F5;
+    color: #282828;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: #DCDCDC;
-    background-color: #3D59AB;
+    color: #808080;
+    background-color: #FFFFFF;
 }
 
 .user-profile-stats {
