@@ -5,8 +5,11 @@
 <ul>
 	<form action="" method="post">{% csrf_token %}
 		<h4>Are you sure you want to delete "{{ object }}"?</h4>
-		<button class="btn btn-primary" type="submit">Confirm</button></p>
+			<button class="btn btn-primary" type="submit">Confirm</button>
 	</form>
+	<a href="{% url 'project:user_dashboard' %}">
+		<button class="btn btn-default">Cancel</button>
+	</a>
 </ul>
 
 {% endblock %}
