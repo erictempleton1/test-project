@@ -19,7 +19,7 @@ class RegRedirectTest(LiveServerTestCase):
 	def setUp(self):
 		self.binary = FirefoxBinary(settings.FIREFOX_BIN)
 		self.driver = webdriver.Firefox(firefox_binary=self.binary)
-		self.clien = Client()
+		self.client = Client()
 
 	def submit_reg_form(self):
 		driver = self.driver
