@@ -9,6 +9,7 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser)
 
 from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 class CreatePostTest(LiveServerTestCase):
 
@@ -16,8 +17,9 @@ class CreatePostTest(LiveServerTestCase):
 	            'tag_data.json', 'user_profile.json']
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.client = Client()
+        self.binary = FirefoxBinary(settings.FIREFOX_BIN)
+        self.driver = webdriver.Firefox(firefox_binary=self.binary)
+        self.clien = Client()
 
     def login_example_user(self):
         """ Log in when needed """
@@ -31,7 +33,7 @@ class CreatePostTest(LiveServerTestCase):
     		settings.EXAMPLE_PASSWORD)
 
     	self.driver.find_element_by_xpath(
-    		'/html/body/div[2]/div/div/form/input[2]').click()
+    		'/html/body/div[2]/div/div/div/div/form/button').click()
 
         # go to create post page
     	self.driver.get(

@@ -32,7 +32,7 @@ class RegRedirectTest(LiveServerTestCase):
 		self.driver.find_element_by_id('id_password2').send_keys('eric')
 
 		self.driver.find_element_by_xpath(
-			'/html/body/div[2]/div/div/form/input[2]').click()
+			'/html/body/div[2]/div/div/div/div/form/button').click()
 
 	def test_reg_redirect(self):
 		driver = self.driver
