@@ -208,14 +208,15 @@ class BlogPostUpdate(UpdateView):
 			'slug': self.object.slug,
 			})
 
-class BlogPostDelete(SuccessMessageMixin, DeleteView):
-	""" Requires login, and only post author can delete """
-	model = BlogPost
-	success_url = reverse_lazy('project:user_dashboard')
+class BlogPostDelete(DeleteView):
+    """ Requires login, and only post author can delete """
+    model = BlogPost
+    success_url = reverse_lazy('project:user_dashboard')
 
-	def get_queryset(self):
-		user_set = super(BlogPostDelete, self).get_queryset()
-		return user_set.filter(user=self.request.user)
+    def get_queryset(self):
+        messages.success(self.request, 'Post deleted')
+        user_set = super(BlogPostDelete, self).get_queryset()
+        return user_set.filter(user=self.request.user)
 
 class UserDashboard(ListView):
     """ Dashboard where a user can view/edit/delete their posts """

@@ -11,6 +11,11 @@
 	</h3>
 </p>
 <br>
+	{% for message in messages %}
+		<div class="alert alert-info" role="alert">
+			<p>{{ message }}</p>
+		</div>
+	{% endfor %}
 
 <ul>
     {% for post in object_list %}
