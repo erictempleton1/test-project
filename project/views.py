@@ -198,8 +198,9 @@ class BlogPostUpdate(UpdateView):
 		""" 
 		Overrides default queryset to only allow post creator
 		to update, and raises 404 error otherwise.
+        Queries by id instead of slug.
 		"""
-		user_set = super(BlogPostUpdate, self).get_queryset()
+		user_set = BlogPost.objects.filter(id=self.kwargs['id'])
 		return user_set.filter(user=self.request.user)
 
 	def get_success_url(self):
