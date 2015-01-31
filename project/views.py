@@ -379,3 +379,7 @@ class FavsView(ListView):
 # regex issue in urls.py exists-
 #     username with number goes to post
 #     example: /eric1/favorites
+#
+# popular posts changes with pagination
+#
+# duplicate title names cause problems
