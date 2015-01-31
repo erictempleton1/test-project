@@ -2,7 +2,7 @@ from collections import Counter
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm, LoginUserForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
@@ -214,8 +214,12 @@ class BlogPostDelete(DeleteView):
     success_url = reverse_lazy('project:user_dashboard')
 
     def get_queryset(self):
+        """
+        Query by id instead of slug to
+        avoid duplicate issues.
+        """
         messages.success(self.request, 'Post deleted')
-        user_set = super(BlogPostDelete, self).get_queryset()
+        user_set = BlogPost.objects.filter(id=self.kwargs['id'])
         return user_set.filter(user=self.request.user)
 
 class UserDashboard(ListView):
