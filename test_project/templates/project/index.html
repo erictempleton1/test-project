@@ -27,8 +27,7 @@
 
       <div class="col-sm-3" style="background-color: none;">
         <h5>Popular Posts:</h5>
-        {% with posts=all_posts|dictsortreversed:"hits"|slice:":5" %}
-          {% for post in posts %}
+          {% for post in popular_posts %}
             <p>
               <a href="{% url 'project:detail' post.pk post.slug %}">
               {{ post.title|title }}</a> ({{ post.hits }})<br>
@@ -37,8 +36,7 @@
               </span>
             </p>
           {% endfor %}
-        {% endwith %}
-
+          
       	<h5>Popular Tags:</h5>
       	{% for tag, count in tag_count|slice:"8" %}
       	<a href="{% url "project:tagged_posts" tag %}">

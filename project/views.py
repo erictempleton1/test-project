@@ -26,10 +26,14 @@ class HomePageView(ListView):
         return all_posts.order_by('-added')
 
     def get_context_data(self, **kwargs):
-        """ Returns all tags, and used item_count to sort by popular """
+        """
+        Returns all tags, and used item_count to sort by popular.
+        Also returns top 5 most popular posts based on hits.
+        """
         context = super(HomePageView, self).get_context_data(**kwargs)
         get_tags = BlogPostTags.objects.all()
         context['tag_count'] = self.item_count(get_tags)
+        context['popular_posts'] = BlogPost.objects.all().order_by('-hits')[:5]
         return context
 
     def item_count(self, tags):
@@ -383,7 +387,3 @@ class FavsView(ListView):
 # regex issue in urls.py exists-
 #     username with number goes to post
 #     example: /eric1/favorites
-#
-# popular posts changes with pagination
-#
-# duplicate title names cause problems
