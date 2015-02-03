@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^', include('project.urls', namespace="project")),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^summernote/', include('django_summernote.urls')),
+    url(r'^home/search/', include('haystack.urls')),
 )

@@ -8,7 +8,7 @@ class BlogPostIndex(indexes.SearchIndex, indexes.Indexable):
 	added = indexes.CharField(model_attr='added')
 
 	def get_model(self):
-		return BLogPost
+		return BlogPost
 
 	def index_queryset(self, using=None):
 		""" Used when the entire index for model is updated """

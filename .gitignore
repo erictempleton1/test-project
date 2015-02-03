@@ -6,6 +6,8 @@ static/images/
 
 migrations/
 
+woosh_index/
+
 settings.py
 
 __pycache__/
