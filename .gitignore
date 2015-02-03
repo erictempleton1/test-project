@@ -6,7 +6,7 @@ static/images/
 
 migrations/
 
-/test_project/woosh_index/
+test_project/woosh_index/
 
 settings.py
 
