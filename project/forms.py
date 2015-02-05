@@ -97,3 +97,11 @@ class LoginUserForm(AuthenticationForm):
             'placeholder': 'Password',
             }
     ))
+
+class DateRangeSearchForm(SearchForm):
+    start_date = forms.DateField(required=False)
+    end_date = forms.DateField(required=False)
+
+    def search(self):
+        sqs = super(DateRangeSearchForm, self).search()
+        return sqs
