@@ -1,14 +1,16 @@
 from collections import Counter
 from django.contrib import messages
 from django.shortcuts import redirect
+from haystack.views import SearchView
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, Http404
-from project.forms import BlogForm, BlogPostTagsForm, UserRegistrationForm, LoginUserForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from registration.backends.simple.views import RegistrationView
 from project.models import BlogPost, BlogPostTags, UserProfile
 from django.shortcuts import get_list_or_404, get_object_or_404
+from project.forms import (BlogForm, BlogPostTagsForm, UserRegistrationForm,
+                    LoginUserForm)
 from django.views.generic import (ListView, CreateView, DetailView,
                     UpdateView, DeleteView, TemplateView, FormView,
                     View)

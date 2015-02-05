@@ -1,4 +1,5 @@
 from django import forms
+from haystack.forms import SearchForm
 from django.forms import ModelForm, CharField
 from project.models import BlogPost, BlogPostTags
 from django.core.validators import validate_slug
