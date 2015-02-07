@@ -28,5 +28,5 @@ urlpatterns = patterns('',
     url(r'^(?P<author>[\w-]+)/followers/$', UserFollowers.as_view(), name='user_followers'),
     url(r'^(?P<author>[\w-]+)/following/$', UserFollowing.as_view(), name='user_following'),
     url(r'^(?P<author>[\w-]+)/favorites/$', FavsView.as_view(), name='user_favs'),
-    url(r'^home/search/', SearchView(template='search/search.html', form_class=CustomForm), name='haystack_search'),
+    url(r'^home/search/', SearchView(form_class=CustomForm), name='haystack_search'),
 )
