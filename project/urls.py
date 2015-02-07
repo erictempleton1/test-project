@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from project.forms import LoginUserForm
+from haystack.views import SearchView
+from project.forms import LoginUserForm, CustomForm
 from project.views import (BlogPostCreate, HomePageView, BlogPostDetail, 
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
@@ -27,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^(?P<author>[\w-]+)/followers/$', UserFollowers.as_view(), name='user_followers'),
     url(r'^(?P<author>[\w-]+)/following/$', UserFollowing.as_view(), name='user_following'),
     url(r'^(?P<author>[\w-]+)/favorites/$', FavsView.as_view(), name='user_favs'),
+    url(r'^home/search/', SearchView(template='search/search.html', form_class=CustomForm), name='haystack_search'),
 )

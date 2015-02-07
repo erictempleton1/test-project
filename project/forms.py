@@ -98,10 +98,18 @@ class LoginUserForm(AuthenticationForm):
             }
     ))
 
-class DateRangeSearchForm(SearchForm):
-    start_date = forms.DateField(required=False)
-    end_date = forms.DateField(required=False)
+class CustomForm(SearchForm):
+    
+    q = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+            'type': 'search',
+            'class': 'form-control',
+            'placeholder': 'Username, Title, or Content Keyword',
+            }
+    ))
 
     def search(self):
-        sqs = super(DateRangeSearchForm, self).search()
+        sqs = super(CustomForm, self).search()
         return sqs
