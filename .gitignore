@@ -6,7 +6,7 @@ static/images/
 
 migrations/
 
-woosh_index/
+whoosh_index/
 
 settings.py
 
