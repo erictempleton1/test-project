@@ -1,6 +1,8 @@
 {% extends "project/base.html" %}
 {% load staticfiles %}
 
+{% block title %}About - MorningBlog{% endblock %}
+
 {% block about %}
 <li class="active">
   <a href="{% url 'project:about' %}">About</a>
@@ -8,7 +10,9 @@
 {% endblock %}
 
 {% block content %}
+<ul>
 
-<h3>About</h3>
+	<h3>About</h3>
 
+</ul>
 {% endblock %}
