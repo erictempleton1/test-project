@@ -19,7 +19,7 @@ class CreatePostTest(LiveServerTestCase):
     def setUp(self):
         self.binary = FirefoxBinary(settings.FIREFOX_BIN)
         self.driver = webdriver.Firefox(firefox_binary=self.binary)
-        self.clien = Client()
+        self.client = Client()
 
     def login_example_user(self):
         """ Log in when needed """
