@@ -244,6 +244,10 @@ class UserDashboard(ListView):
         context['user'] = self.request.user
         return context
 
+class UserFeed(ListView):
+    model = UserProfile
+    template_name = 'project/user_feed.html'
+
 class BlogTags(ListView):
 	""" Lists blog posts with a certain tag """
 	model = BlogPostTags

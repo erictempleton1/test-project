@@ -7,7 +7,7 @@ from project.views import (BlogPostCreate, HomePageView, BlogPostDetail,
 	        BlogPostUpdate, BlogPostDelete, ProfileBlog, UserDashboard,
 	        BlogTags, AboutPageView, FollowUser, UnfollowUser,
             UserFollowers, UserFollowing, FavoritePost, UnfavoritePost,
-            FavsView, RegistrationRedirect)
+            FavsView, RegistrationRedirect, UserFeed)
 
 urlpatterns = patterns('',
 	url(r'^$', HomePageView.as_view(), name='homepage'),
@@ -29,4 +29,5 @@ urlpatterns = patterns('',
     url(r'^(?P<author>[\w-]+)/following/$', UserFollowing.as_view(), name='user_following'),
     url(r'^(?P<author>[\w-]+)/favorites/$', FavsView.as_view(), name='user_favs'),
     url(r'^home/search/', SearchView(form_class=CustomForm), name='haystack_search'),
+    url(r'^home/feed/', login_required(UserFeed.as_view()), name='user_feed'),
 )
