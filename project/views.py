@@ -393,3 +393,7 @@ class FavsView(ListView):
 # regex issue in urls.py exists-
 #     username with number goes to post
 #     example: /eric1/favorites
+#
+# following feed-
+# user_names = [items.user.username for items in all_following]
+# f_posts = BlogPost.objects.filter(author__in=user_names).order_by('-added')
