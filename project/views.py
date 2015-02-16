@@ -244,10 +244,6 @@ class UserDashboard(ListView):
         context['user'] = self.request.user
         return context
 
-class UserFeed(ListView):
-    model = UserProfile
-    template_name = 'project/user_feed.html'
-
 class BlogTags(ListView):
 	""" Lists blog posts with a certain tag """
 	model = BlogPostTags
@@ -302,6 +298,19 @@ class UserFollowing(ListView):
         user_follows = get_object_or_404(UserProfile, user=user_follow)
         all_following = user_follows.following.all()
         context['all_following'] = all_following
+        return context
+
+class UserFeed(ListView):
+    model = UserProfile
+    template_name = 'project/user_feed.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserFeed, self).get_context_data(**kwargs)
+        user_follows = get_object_or_404(UserProfile, user=self.request.user)
+        all_following = user_follows.following.all()
+        user_names = [items.user.username for items in all_following]
+        context['f_posts'] = BlogPost.objects.filter(
+            author__in=user_names).order_by('-added')
         return context
 
 class FollowUser(View):

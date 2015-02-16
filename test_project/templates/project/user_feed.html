@@ -7,6 +7,11 @@
 <ul>
 	<h4>Feed</h4>
 	
+	{% for post in f_posts %}
+		<p>
+			{{ post.title|title }}
+		</p>
+	{% endfor %}
 </ul>
 
 
