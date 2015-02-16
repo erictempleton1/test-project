@@ -36,7 +36,7 @@ class FeedPageTest(LiveServerTestCase):
     		'/html/body/div[2]/div/div/div/div/form/button').click()
 
     def test_page_load(self):
-    	response = self.client.get('/home/feed/')
+        response = self.client.post('/accounts/login/', {'username': 'eric', 'password': 'eric'}, follow=True)
     	self.assertEqual(response.status_code, 200)
 
     def tearDown(self):
