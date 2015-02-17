@@ -21,20 +21,6 @@ class FeedPageTest(LiveServerTestCase):
         self.driver = webdriver.Firefox(firefox_binary=self.binary)
         self.client = Client()
 
-    def login_example_user(self):
-        """ Log in when needed """
-        driver = self.driver
-        self.driver.get(
-    		'{0}{1}'.format(self.live_server_url, '/accounts/login/'))
-
-    	self.driver.find_element_by_id('id_username').send_keys(
-    		settings.EXAMPLE_USERNAME)
-    	self.driver.find_element_by_id('id_password').send_keys(
-    		settings.EXAMPLE_PASSWORD)
-
-    	self.driver.find_element_by_xpath(
-    		'/html/body/div[2]/div/div/div/div/form/button').click()
-
     def test_page_load(self):
         response = self.client.post('/accounts/login/', {'username': 'eric', 'password': 'eric'}, follow=True)
     	self.assertEqual(response.status_code, 200)
