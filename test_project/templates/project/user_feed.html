@@ -8,8 +8,18 @@
 	<h4>Feed</h4>
 	
 	{% for post in f_posts %}
+		<h3>
+			<a href="{% url 'project:detail' post.pk post.slug %}">
+				{{ post.title|title }}
+			</a>
+		</h3>
+		<h5>
+			Author: <a href="{% url 'project:profile_detail' post.author %}">
+				{{ post.author }}</a> | Added: {{ post.added }} | Updated: {{ post.updated }}
+		</h5>
 		<p>
-			{{ post.title|title }}
+			{{ post.content|safe|truncatechars:100 }}
+			<a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
 		</p>
 	{% endfor %}
 </ul>
