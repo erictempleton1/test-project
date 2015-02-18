@@ -6,22 +6,27 @@
 {% block content %}
 <ul>
 	<h4>Feed</h4>
-	
-	{% for post in f_posts %}
-		<h3>
-			<a href="{% url 'project:detail' post.pk post.slug %}">
-				{{ post.title|title }}
-			</a>
-		</h3>
-		<h5>
-			Author: <a href="{% url 'project:profile_detail' post.author %}">
-				{{ post.author }}</a> | Added: {{ post.added }} | Updated: {{ post.updated }}
-		</h5>
+	{% if f_posts %}
+		{% for post in f_posts %}
+			<h3>
+				<a href="{% url 'project:detail' post.pk post.slug %}">
+					{{ post.title|title }}
+				</a>
+			</h3>
+			<h5>
+				Author: <a href="{% url 'project:profile_detail' post.author %}">
+					{{ post.author }}</a> | Added: {{ post.added }} | Updated: {{ post.updated }}
+			</h5>
+			<p>
+				{{ post.content|safe|truncatechars:100 }}
+				<a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
+			</p>
+		{% endfor %}
+	{% else %}
 		<p>
-			{{ post.content|safe|truncatechars:100 }}
-			<a href="{% url 'project:detail' post.pk post.slug %}">Read More</a>
+			Follow a few users to build your feed
 		</p>
-	{% endfor %}
+	{% endif %}
 </ul>
 
 
