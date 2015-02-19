@@ -301,6 +301,12 @@ class UserFollowing(ListView):
         return context
 
 class UserFeed(ListView):
+    """
+    Creates a user feed based on 
+    users followed.
+    A little inefficient at the moment,
+    need to look into better way to query.
+    """
     model = UserProfile
     template_name = 'project/user_feed.html'
 
@@ -308,7 +314,10 @@ class UserFeed(ListView):
         context = super(UserFeed, self).get_context_data(**kwargs)
         user_follows = get_object_or_404(UserProfile, user=self.request.user)
         all_following = user_follows.following.all().prefetch_related('following')
+
+        # bottleneck here
         user_names = [items.user.username for items in all_following]
+        
         context['f_posts'] = BlogPost.objects.filter(
             author__in=user_names).order_by('-added')
         return context
